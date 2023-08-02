@@ -1,0 +1,6 @@
+.indicator {
+  cursor: pointer;
+}
+.indicator:hover {
+  opacity: 0.6;
+}

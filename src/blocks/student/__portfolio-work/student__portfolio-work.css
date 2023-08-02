@@ -1,0 +1,21 @@
+.student__portfolio-work {
+  min-height: 70px;
+  width: 100%;
+  border-bottom: 1px solid #424242;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+@media screen and (max-width: 768px) {
+  .student__portfolio-work {
+    min-height: 88px;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .student__portfolio-work {
+    min-height: 62px;
+  }
+}

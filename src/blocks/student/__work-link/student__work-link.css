@@ -1,0 +1,23 @@
+.student__work-link {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.875rem;
+  line-height: 1.667;
+  letter-spacing: -1.2px;
+}
+
+@media screen and (max-width: 768px) {
+  .student__work-link {
+    font-size: 1.75rem;
+    line-height: 1.786;
+    letter-spacing: -1.12px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .student__work-link {
+    font-size: 1.125rem;
+    line-height: 1.555;
+    letter-spacing: -0.72px;
+  }
+}

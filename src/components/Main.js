@@ -1,11 +1,20 @@
-// Main — компонент страницы «О проекте». 
-export default function Main() {
+// Main — компонент страницы «О проекте»
+import Promo from "./Promo";
+import AboutProject from "./AboutProject";
+import Techs from "./Techs";
+import AboutMe from "./AboutMe";
+import Footer from "./Footer";
+
+export default function Main({ onRegister, onLogin }) {
   return (
-    <main className="main">
-      <h1>
-        Main — компонент страницы «О проекте». Он будет содержать только
-        презентационные компоненты и в будущем, за исключением шапки навигации.
-      </h1>
-    </main>
+    <>
+      <main className="main">
+        <Promo onRegister={onRegister} onLogin={onLogin} />
+        <AboutProject />
+        <Techs />
+        <AboutMe />
+      </main>
+      <Footer />
+    </>
   );
 }

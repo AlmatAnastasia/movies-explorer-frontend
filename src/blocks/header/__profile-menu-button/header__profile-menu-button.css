@@ -1,0 +1,25 @@
+.header__profile-menu-button {
+  padding: 0;
+  margin-top: 15px;
+  height: 44px;
+  width: 44px;
+  background-color: initial;
+  background-image: url("../../../images/profile-icon-menu.svg");
+  background-position: 50%;
+  background-repeat: no-repeat;
+  border: none;
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .header__profile-menu-button {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .header__profile-menu-button {
+    height: 43px;
+    width: 40px;
+  }
+}

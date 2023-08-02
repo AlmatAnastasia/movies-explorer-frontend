@@ -1,0 +1,12 @@
+.movie__save-button_active {
+  width: 72px;
+  height: 21px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.625rem;
+  line-height: 0.9;
+  color: #ffffff;
+  background-color: #313131;
+  border-radius: 30px;
+  border: none;
+}

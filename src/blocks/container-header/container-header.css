@@ -1,0 +1,30 @@
+.container-header {
+  margin-top: 70px;
+  margin-bottom: 40px;
+  min-width: 396px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
+}
+
+@media screen and (max-width: 395px) {
+  .container-header {
+    min-width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container-header {
+    margin-top: 232px;
+    row-gap: 40px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .container-header {
+    margin-top: 56px;
+    margin-bottom: 80px;
+    min-width: 260px;
+    row-gap: 50px;
+  }
+}

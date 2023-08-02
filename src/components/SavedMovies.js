@@ -1,6 +1,16 @@
-// SavedMovies — компонент страницы с сохранёнными карточками фильмов. 
+// SavedMovies — компонент страницы с сохранёнными карточками фильмов
+import Header from "./Header";
+import SearchForm from "./SearchForm";
+import MoviesCardList from "./MoviesCardList";
+import Footer from "./Footer";
 export default function SavedMovies() {
+  const type = "savedMovies";
   return (
-    <h1>SavedMovies — компонент страницы с сохранёнными карточками фильмов.</h1>
+    <>
+      <Header />
+      <SearchForm />
+      <MoviesCardList type={type} />
+      <Footer />
+    </>
   );
 }

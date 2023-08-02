@@ -1,0 +1,32 @@
+.technologies__list {
+  max-width: 1140px;
+  margin-top: 98px;
+  margin-left: 8px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 84px);
+  row-gap: 10px;
+  column-gap: 17px;
+  align-items: center;
+}
+
+@media screen and (max-width: 668px) {
+  .technologies__list {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .technologies__list {
+    max-width: 668px;
+    margin-top: 83px;
+    margin-left: 0;
+    column-gap: 10px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .technologies__list {
+    margin-top: 50px;
+    max-width: 200px;
+  }
+}

@@ -1,0 +1,27 @@
+.search__switch {
+  margin-right: 12px;
+  width: 36px;
+  height: 20px;
+  background: #3ddc84;
+  display: block;
+  border-radius: 100px;
+  position: relative;
+}
+
+@media screen and (max-width: 320px) {
+  .search__switch {
+    margin-right: 13px;
+  }
+}
+
+.search__switch:after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 8px;
+  height: 8px;
+  background: #fff;
+  border-radius: 90px;
+  transition: 0.3s;
+}

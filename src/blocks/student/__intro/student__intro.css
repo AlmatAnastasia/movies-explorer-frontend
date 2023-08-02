@@ -1,0 +1,16 @@
+.student__intro {
+  margin-left: 4px;
+  width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .student__intro {
+    margin-left: 0;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .student__intro {
+    margin-top: 25px;
+  }
+}

@@ -1,0 +1,22 @@
+.menu__movies-links {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1.125rem;
+  line-height: 1.22;
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .menu__movies-links {
+    display: flex;
+    flex-direction: column;
+    row-gap: 28px;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .menu__movies-links {
+    row-gap: 24px;
+  }
+}

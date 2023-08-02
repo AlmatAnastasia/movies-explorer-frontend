@@ -1,0 +1,9 @@
+.not-found__container {
+  max-width: 400px;
+}
+
+@media screen and (max-width: 320px) {
+  .not-found__container {
+    max-width: 300px;
+  }
+}

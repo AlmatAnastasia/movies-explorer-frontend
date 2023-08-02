@@ -1,0 +1,10 @@
+.search__input_type_checkbox {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
+.search__input_type_checkbox:checked + .search__switch:after {
+  left: calc(100% - 6px);
+  transform: translateX(-100%);
+}

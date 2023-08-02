@@ -1,0 +1,23 @@
+.about {
+  margin: 110px 70px 110px 70px;
+  max-width: 1140px;
+}
+
+@media screen and (max-width: 1220px) {
+  .about {
+    margin-right: 50px;
+    max-width: 800px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .about {
+    margin: 91px 70px 106px 50px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .about {
+    margin: 70px 18px 70px 18px;
+  }
+}

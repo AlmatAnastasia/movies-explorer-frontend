@@ -1,0 +1,15 @@
+.profile__input {
+  margin-left: 6px;
+  padding: 4px 0 16px;
+  width: calc(100% - 39px);
+  border: none;
+  box-sizing: border-box;
+  color: #ffffff;
+  background-color: initial;
+  text-align: end;
+}
+
+.profile__input:focus {
+  outline: 2px solid #3ddc84;
+  border-radius: 1%;
+}

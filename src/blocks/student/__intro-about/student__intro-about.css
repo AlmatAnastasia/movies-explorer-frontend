@@ -1,0 +1,27 @@
+.student__intro-about {
+  margin: 0;
+  margin-top: 25px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.571;
+}
+
+@media screen and (max-width: 768px) {
+  .student__intro-about {
+    margin-top: 20px;
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .student__intro-about {
+    max-height: 112px;
+    font-size: 0.6875rem;
+    line-height: 1.455;
+    text-overflow: ellipsis;
+    white-space: normal;
+    overflow: hidden;
+  }
+}

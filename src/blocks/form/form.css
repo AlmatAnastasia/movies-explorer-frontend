@@ -1,0 +1,22 @@
+.form {
+  min-width: 390px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.625rem;
+  line-height: 1.2;
+}
+
+@media screen and (max-width: 389px) {
+  .form {
+    min-width: 100%;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .form {
+    min-width: 260px;
+  }
+}

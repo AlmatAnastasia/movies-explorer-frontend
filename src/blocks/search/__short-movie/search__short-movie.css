@@ -1,0 +1,15 @@
+.search__short-movie {
+  margin: 0;
+  padding-top: 2px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.128;
+}
+
+@media screen and (max-width: 320px) {
+  .search__short-movie {
+    font-size: 0.6875rem;
+    line-height: 1.636;
+  }
+}
