@@ -11,6 +11,12 @@
   background-color: #303030;
 }
 
+@media screen and (max-width: 767px) {
+  .about__time {
+    font-size: calc((100vw - 767px) / (767 - 320) * (14 - 11) + 11px);
+  }
+}
+
 @media screen and (max-width: 320px) {
   .about__time {
     height: 35px;

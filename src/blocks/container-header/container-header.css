@@ -20,6 +20,12 @@
   }
 }
 
+@media screen and (max-width: 450px) {
+  .container-header {
+    min-width: 300px;
+  }
+}
+
 @media screen and (max-width: 320px) {
   .container-header {
     margin-top: 56px;

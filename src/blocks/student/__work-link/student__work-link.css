@@ -1,9 +1,12 @@
 .student__work-link {
+  width: 100%;
   font-style: normal;
   font-weight: 400;
   font-size: 1.875rem;
   line-height: 1.667;
   letter-spacing: -1.2px;
+  display: flex;
+  justify-content: space-between;
 }
 
 @media screen and (max-width: 768px) {

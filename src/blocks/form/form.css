@@ -15,6 +15,12 @@
   }
 }
 
+@media screen and (max-width: 450px) {
+  .form {
+    min-width: 300px;
+  }
+}
+
 @media screen and (max-width: 320px) {
   .form {
     min-width: 260px;

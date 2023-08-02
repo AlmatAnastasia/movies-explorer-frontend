@@ -5,11 +5,13 @@ import headerLogo from "../images/logo.svg";
 export default function Header({ onMenuClick }) {
   return (
     <header className="header">
-      <img
-        className="header__logo"
-        src={headerLogo}
-        alt='Логотип сервиса &quot;Фильмы&quot;'
-      />
+      <Link className="header__logo-link link" to="/">
+        <img
+          className="header__logo"
+          src={headerLogo}
+          alt='Логотип сервиса &quot;Фильмы&quot;'
+        />
+      </Link>
       <nav className="header__navigation">
         <ul className="header__movies-links list">
           <li>

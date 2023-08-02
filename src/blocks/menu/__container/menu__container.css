@@ -5,14 +5,14 @@
 
 @media screen and (max-width: 768px) {
   .menu__container {
-    max-width: 520px;
+    width: 520px;
     display: block;
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 520px) {
   .menu__container {
-    max-width: 100%;
+    width: 100%;
     display: block;
   }
 }

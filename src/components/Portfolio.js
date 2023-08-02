@@ -12,15 +12,8 @@ export default function Portfolio() {
             target="_blank"
             rel="noreferrer"
           >
-            Статичный сайт
-          </Link>
-          <Link
-            className="student__pointer-link link"
-            to="https://github.com/AlmatAnastasia/How-to-learn"
-            target="_blank"
-            rel="noreferrer"
-          >
-            ↗
+            <p className="student__work-text">Статичный сайт</p>
+            <p className="student__work-pointer">↗</p>
           </Link>
         </li>
         <li className="student__portfolio-work">
@@ -30,15 +23,8 @@ export default function Portfolio() {
             target="_blank"
             rel="noreferrer"
           >
-            Адаптивный сайт
-          </Link>
-          <Link
-            className="student__pointer-link link"
-            to="https://github.com/AlmatAnastasia/russian-travel"
-            target="_blank"
-            rel="noreferrer"
-          >
-            ↗
+            <p className="student__work-text">Адаптивный сайт</p>
+            <p className="student__work-pointer">↗</p>
           </Link>
         </li>
         <li className="student__portfolio-work">
@@ -48,15 +34,8 @@ export default function Portfolio() {
             target="_blank"
             rel="noreferrer"
           >
-            Одностраничное приложение
-          </Link>
-          <Link
-            className="student__pointer-link link"
-            to="https://github.com/AlmatAnastasia/express-mesto-gha"
-            target="_blank"
-            rel="noreferrer"
-          >
-            ↗
+            <p className="student__work-text">Одностраничное приложение</p>
+            <p className="student__work-pointer">↗</p>
           </Link>
         </li>
       </ul>

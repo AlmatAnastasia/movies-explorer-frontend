@@ -1,5 +1,6 @@
 .student__portfolio-works {
-  margin-top: 29px;
+  margin-top: 49px;
+  margin-left: 4px;
   width: 1140px;
   display: flex;
   flex-direction: column;
@@ -14,8 +15,10 @@
 
 @media screen and (max-width: 768px) {
   .student__portfolio-works {
+    margin-top: 38px;
+    margin-left: 0;
     width: 668px;
-    row-gap: 1px;
+    row-gap: 12px;
   }
 }
 
@@ -27,8 +30,8 @@
 
 @media screen and (max-width: 320px) {
   .student__portfolio-works {
-    margin-top: 25px;
+    margin-top: 27px;
     width: 292px;
-    row-gap: 3px;
+    row-gap: 7px;
   }
 }

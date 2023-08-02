@@ -1,19 +1,20 @@
-.student__pointer-link {
+.student__work-pointer {
+  margin: 0;
   height: 100%;
-  font-size: 22px;
-  line-height: 45px;
+  font-size: 30px;
+  line-height: 57px;
 }
 
 @media screen and (max-width: 768px) {
-  .student__pointer-link {
-    margin-top: 13px;
+  .student__work-pointer {
     font-size: 27px;
   }
 }
 
 @media screen and (max-width: 320px) {
-  .student__pointer-link {
+  .student__work-pointer {
     margin-top: 1px;
     font-size: 19px;
+    line-height: 30px;
   }
 }

@@ -1,4 +1,4 @@
-.search__find-button {
+.search__submit-button {
   margin-top: 18px;
   margin-left: 6px;
   padding: 0;
@@ -12,7 +12,7 @@
 }
 
 @media screen and (max-width: 320px) {
-  .search__find-button {
+  .search__submit-button {
     margin-top: 11px;
   }
 }

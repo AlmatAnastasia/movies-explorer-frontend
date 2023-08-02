@@ -9,7 +9,7 @@ export default function SearchForm() {
           <img
             className="search__icon"
             src={searchIcon}
-            alt='Иконка "Начать поиск"'
+            alt='Иконка &quot;Начать поиск&quot;'
           />
           <input
             type="text"
@@ -23,10 +23,10 @@ export default function SearchForm() {
           />
           <span className="search-input-error"></span>
           <button
-            type="button"
-            name="find-button"
-            aria-label='Кнопка &quot;Найти&quot;'
-            className="search__find-button indicator"
+            type="submit"
+            name="submit-button"
+            aria-label='Кнопка отправки формы &quot;Поиск&quot;'
+            className="search__submit-button indicator"
           ></button>
         </div>
         <div className="search__container">

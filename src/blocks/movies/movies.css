@@ -8,6 +8,18 @@
   }
 }
 
+@media screen and (max-width: 450px) {
+  .movies {
+    margin: 132px 20px 159px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .movies {
+    margin: 132px 10px 159px;
+  }
+}
+
 @media screen and (max-width: 320px) {
   .movies {
     margin: 91px 10px 159px;

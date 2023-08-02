@@ -4,6 +4,10 @@
   visibility: hidden;
 }
 
+.search__input_type_checkbox:checked + .search__switch {
+  background-color: #3ddc84;
+}
+
 .search__input_type_checkbox:checked + .search__switch:after {
   left: calc(100% - 6px);
   transform: translateX(-100%);

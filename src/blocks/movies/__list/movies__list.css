@@ -17,6 +17,12 @@
   }
 }
 
+@media screen and (max-width: 450px) {
+  .movies__list {
+    grid-template-columns: repeat(auto-fit, 300px);
+  }
+}
+
 @media screen and (max-width: 320px) {
   .movies__list {
     grid-template-columns: repeat(auto-fit, 300px);
