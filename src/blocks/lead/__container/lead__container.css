@@ -1,0 +1,33 @@
+.lead__container {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.75rem;
+  line-height: 1.333;
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 30px;
+}
+
+@media screen and (max-width: 1280px) {
+  .lead__container {
+    font-size: calc((100vw - 320px) / (1280 - 320) * (12 - 10) + 10px);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .lead__container {
+    column-gap: 48px;
+    font-size: 0.75rem;
+    line-height: 1.333;
+    column-gap: 31px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .lead__container {
+    margin: 0 4px;
+    font-size: 0.625rem;
+    line-height: 1.6;
+    column-gap: 12px;
+  }
+}

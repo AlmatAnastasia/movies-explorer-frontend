@@ -1,0 +1,9 @@
+.movie__save-button_completed {
+  width: 21px;
+  height: 21px;
+  background-image: url("../../../../images/save-button.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  border: none;
+}

@@ -1,0 +1,32 @@
+.student__avatar {
+  width: 270px;
+  height: 327px;
+  border-radius: 10px;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+
+@media screen and (max-width: 768px) {
+  .student__avatar {
+    width: 255px;
+    height: 307px;
+  }
+}
+
+@media screen and (max-width: 730px) {
+  .student__avatar {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 2;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .student__avatar {
+    width: 292px;
+    height: 352px;
+  }
+}

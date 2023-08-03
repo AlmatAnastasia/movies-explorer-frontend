@@ -1,0 +1,4 @@
+.menu__movies-link_active {
+  text-decoration-line: underline;
+  text-underline-offset: 0.58em;
+}

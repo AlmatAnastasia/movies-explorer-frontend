@@ -1,0 +1,35 @@
+.about__text {
+  margin: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.428;
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+@media screen and (max-width: 1279px) {
+  .about__text {
+    font-size: calc((100vw - 1279px) / (1279 - 768) * (14 - 12) + 12px);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .about__text {
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .about__text {
+    font-size: calc((100vw - 767px) / (767 - 3208) * (12 - 11) + 11px);
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .about__text {
+    font-size: 0.6875rem;
+    line-height: 1.5;
+  }
+}

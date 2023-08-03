@@ -1,0 +1,23 @@
+.profile__container-exit {
+  margin-top: 206px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  font-style: normal;
+  font-size: 0.8125rem;
+  line-height: 1.23;
+}
+
+@media screen and (max-width: 768px) {
+  .profile__container-exit {
+    margin-top: 196px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .profile__container-exit {
+    margin-top: 365px;
+    font-size: 0.75rem;
+    line-height: 1.25;
+  }
+}

@@ -1,0 +1,32 @@
+.lead__learn-more-button {
+  margin-top: 146px;
+  width: 129px;
+  height: 36px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.75rem;
+  line-height: 1.143;
+  text-align: center;
+  color: #ffffff;
+  border-radius: 3px;
+  border: 1px solid #ffffff;
+}
+
+@media screen and (max-width: 768px) {
+  .lead__learn-more-button {
+    margin-top: 92px;
+    margin-left: 289px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .lead__learn-more-button {
+    margin-left: calc((100vw - 320px) / (767 - 320) * (289 - 85) + 85px);
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .lead__learn-more-button {
+    margin-top: 80px;
+  }
+}

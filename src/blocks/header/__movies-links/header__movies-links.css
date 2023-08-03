@@ -1,0 +1,15 @@
+.header__movies-links {
+  margin-top: 28px;
+  display: flex;
+  column-gap: 20px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.286;
+}
+
+@media screen and (max-width: 768px) {
+  .header__movies-links {
+    display: none;
+  }
+}

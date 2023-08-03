@@ -1,0 +1,16 @@
+.not-found__link {
+  padding-top: 184px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.214;
+  color: #4285f4;
+}
+
+@media screen and (max-width: 320px) {
+  .not-found__link {
+    padding-top: 284px;
+    font-size: 0.75rem;
+    line-height: 1.25;
+  }
+}

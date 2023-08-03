@@ -1,0 +1,25 @@
+.lead__logo-diploma {
+  margin-top: 33px;
+  width: 311px;
+  height: 304px;
+  grid-row-start: 1;
+  grid-row-end: 3;
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+
+@media screen and (max-width: 1230px) {
+  .lead__logo-diploma {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 1;
+    grid-column-end: 2;
+  }
+}
+
+@media screen and (max-width: 372px) {
+  .lead__logo-diploma {
+    width: 210px;
+    height: 206px;
+  }
+}

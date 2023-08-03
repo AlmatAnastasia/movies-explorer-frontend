@@ -1,0 +1,13 @@
+.profile__input-error {
+  margin-bottom: 5px;
+  width: calc(100% - 33px);
+  min-height: 30px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.625rem;
+  line-height: 1.2;
+  color: red;
+  position: absolute;
+  left: 33px;
+  bottom: -35px;
+}

@@ -1,0 +1,38 @@
+.technologies__title {
+  margin: 0;
+  min-width: 1140px;
+  min-height: 49px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.375rem;
+  line-height: 1.227;
+  letter-spacing: -0.88px;
+}
+
+@media screen and (max-width: 1279px) {
+  .technologies__title {
+    min-width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .technologies__title {
+    min-width: 668px;
+  }
+}
+
+@media screen and (max-width: 668px) {
+  .technologies__title {
+    min-width: 100%;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .technologies__title {
+    min-width: 284px;
+    min-height: 47px;
+    font-size: 1.125rem;
+    line-height: 1.222;
+    border-bottom: 1px solid #000000;
+  }
+}

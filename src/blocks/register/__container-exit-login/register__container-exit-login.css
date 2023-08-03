@@ -1,0 +1,17 @@
+.register__container-exit-login {
+  margin-top: 153px;
+  margin-bottom: 55px;
+}
+
+@media screen and (max-width: 768px) {
+  .register__container-exit-login {
+    margin-bottom: 217px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .register__container-exit-login {
+    margin-top: 241px;
+    margin-bottom: 15px;
+  }
+}

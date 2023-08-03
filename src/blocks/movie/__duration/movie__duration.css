@@ -1,0 +1,16 @@
+.movie__duration {
+  margin: 0;
+  min-width: 52px;
+  min-height: 18px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.6875rem;
+  line-height: 0.909;
+  color: #8b8b8b;
+  text-align: center;
+  border-radius: 3px;
+  background-color: #2f2f2f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

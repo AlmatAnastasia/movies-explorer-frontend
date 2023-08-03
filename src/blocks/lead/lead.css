@@ -1,0 +1,16 @@
+.lead {
+  padding: 18px 66px 74px 74px;
+  background-color: #073042;
+}
+
+@media screen and (max-width: 768px) {
+  .lead {
+    padding: 18px 30px 76px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .lead {
+    padding: 18px 10px 30px;
+  }
+}

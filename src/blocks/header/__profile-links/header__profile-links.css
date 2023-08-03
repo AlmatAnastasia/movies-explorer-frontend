@@ -1,0 +1,17 @@
+.header__profile-links {
+  margin-top: 15px;
+  margin-left: 50px;
+  display: flex;
+  align-items: center;
+  column-gap: 17px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.143;
+}
+
+@media screen and (max-width: 768px) {
+  .header__profile-links {
+    display: none;
+  }
+}

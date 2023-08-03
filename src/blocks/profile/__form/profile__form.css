@@ -1,0 +1,9 @@
+.profile__form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 14px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.6875rem;
+  line-height: 1.96;
+}

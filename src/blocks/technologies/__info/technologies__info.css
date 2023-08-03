@@ -1,0 +1,29 @@
+.technologies__info {
+  margin: 0;
+  margin-top: 27px;
+  max-width: 460px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.429;
+  letter-spacing: -0.56px;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .technologies__info {
+    margin-top: 22px;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    letter-spacing: -0.48px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .technologies__info {
+    margin-top: 24px;
+    font-size: 0.6875rem;
+    line-height: 1.455;
+    letter-spacing: -0.44px;
+  }
+}
