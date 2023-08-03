@@ -1,0 +1,19 @@
+/** Родительский блок page **/
+
+.page {
+  margin: 0 auto;
+  padding: 0 calc((100vw - 1280px) / 2);
+  max-width: 1280px;
+  color: #fff;
+  /* сглаживание шрифтов в Firefox и браузерах на движке Webkit */
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  /* правила для масштабирования шрифтов */
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  /* рендеринг:«оптимизировать читаемость» */
+  text-rendering: optimizeLegibility;
+  font-family: "Inter", "Arial", sans-serif;
+  background-color: #202020;
+}

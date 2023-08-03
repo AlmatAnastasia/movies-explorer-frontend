@@ -1,0 +1,17 @@
+.movies_saved {
+  min-height: 394px;
+}
+
+@media screen and (max-width: 768px) {
+  .movies_saved {
+    min-height: 605px;
+    max-height: 1065px;
+    margin-bottom: 160px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .movies_saved {
+    margin-bottom: 218px;
+  }
+}

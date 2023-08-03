@@ -1,0 +1,18 @@
+.search {
+  margin: 70px auto 48px;
+  max-width: 1140px;
+}
+
+@media screen and (max-width: 768px) {
+  .search {
+    margin: 83px auto 131px;
+    max-width: 708px;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .search {
+    margin: 97px auto 90px;
+    max-width: 292px;
+  }
+}

@@ -1,0 +1,40 @@
+.student__title {
+  margin: 0;
+  margin-left: 4px;
+  min-width: 1140px;
+  min-height: 50px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.375rem;
+  line-height: 1.227;
+  letter-spacing: -0.88px;
+}
+
+@media screen and (max-width: 1279px) {
+  .student__title {
+    min-width: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .student__title {
+    min-width: 668px;
+    margin-left: 0;
+    min-height: 49px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .student__title {
+    min-width: 100%;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .student__title {
+    min-width: 292px;
+    min-height: 48px;
+    font-size: 1.125rem;
+    line-height: 1.222;
+  }
+}

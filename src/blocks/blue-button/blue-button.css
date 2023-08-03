@@ -1,0 +1,8 @@
+.blue-button {
+  padding: 0;
+  width: 100%;
+  min-height: 45px;
+  border: none;
+  border-radius: 3px;
+  background: #4285f4;
+}

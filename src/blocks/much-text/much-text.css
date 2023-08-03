@@ -1,0 +1,7 @@
+@media screen and (max-width: 768px) {
+  .much-text {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}

@@ -1,0 +1,6 @@
+@media screen and (max-width: 320px) {
+  .footer__item:first-of-type {
+    grid-row-start: 3;
+    grid-row-end: 4;
+  }
+}

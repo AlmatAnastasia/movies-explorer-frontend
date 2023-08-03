@@ -1,0 +1,25 @@
+.about__subtitle {
+  margin: 0;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.25rem;
+  line-height: 1.2;
+  letter-spacing: -0.8px;
+  grid-row-start: 1;
+  grid-row-end: 2;
+}
+
+@media screen and (max-width: 767px) {
+  .about__subtitle {
+    font-size: calc((100vw - 767px) / (767 - 320) * (20 - 18) + 18px);
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .about__subtitle {
+    margin-top: 40px;
+    font-size: 1.125rem;
+    line-height: 1.22;
+    letter-spacing: -0.72px;
+  }
+}

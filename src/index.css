@@ -1,0 +1,187 @@
+/* Подключение стилей для всех блоков */
+
+/* подключаем код сторонних разработчиков - normalize.css */
+@import url("./vendor/normalize.css");
+
+/* подключаем шрифты - fonts.css */
+@import url("./vendor/fonts/fonts.css");
+
+/* подключаем стили блока page */
+@import url("./blocks/page/page.css");
+
+/* подключаем стили дополнительных блоков */
+@import url("./blocks/blue-button/blue-button.css");
+@import url("./blocks/button/button.css");
+@import url("./blocks/button-link/button-link.css");
+@import url("./blocks/cell/cell.css");
+@import url("./blocks/center/center.css");
+@import url("./blocks/color-link/color-link.css");
+@import url("./blocks/color-text/color-text.css");
+@import url("./blocks/container-exit/container-exit.css");
+@import url("./blocks/container-header/container-header.css");
+@import url("./blocks/container-line/container-line.css");
+@import url("./blocks/container-small/container-small.css");
+@import url("./blocks/form/form.css");
+@import url("./blocks/indicator/indicator.css");
+@import url("./blocks/indicator/_disabled/indicator_disabled.css");
+@import url("./blocks/input/input.css");
+@import url("./blocks/input/_type_error-focus/input_type_error-focus.css");
+@import url("./blocks/input_type_active/input_type_active.css");
+@import url("./blocks/input_type_error/input_type_error.css");
+@import url("./blocks/input-error/input-error.css");
+@import url("./blocks/input-error/_type_single/input-error_type_single.css");
+@import url("./blocks/line/line.css");
+@import url("./blocks/link/link.css");
+@import url("./blocks/list/list.css");
+@import url("./blocks/logo/logo.css");
+@import url("./blocks/much-text/much-text.css");
+@import url("./blocks/placeholder/placeholder.css");
+@import url("./blocks/title/title.css");
+@import url("./blocks/title-line/title-line.css");
+@import url("./blocks/title-center/title-center.css");
+
+/* подключаем стили блока header */
+@import url("./blocks/header/header.css");
+@import url("./blocks/header/__logo/header__logo.css");
+@import url("./blocks/header/__navigation/header__navigation.css");
+@import url("./blocks/header/__movies-links/header__movies-links.css");
+@import url("./blocks/header/__profile-links/header__profile-links.css");
+@import url("./blocks/header/__profile-edit-button/header__profile-edit-button.css");
+@import url("./blocks/header/__profile-menu-button/header__profile-menu-button.css");
+
+/* подключаем стили блока search */
+@import url("./blocks/search/search.css");
+@import url("./blocks/search/__form/search__form.css");
+@import url("./blocks/search/__container/search__container.css");
+@import url("./blocks/search/__icon/search__icon.css");
+@import url("./blocks/search/__input/search__input.css");
+@import url("./blocks/search/__input/_type_error-focus/search__input_type_error-focus.css");
+@import url("./blocks/search/__submit-button/search__submit-button.css");
+@import url("./blocks/search/__input/_type_checkbox/search__input_type_checkbox.css");
+@import url("./blocks/search/__switch/search__switch.css");
+@import url("./blocks/search/__short-movie/search__short-movie.css");
+
+/* подключаем стили блока movies */
+@import url("./blocks/movies/movies.css");
+@import url("./blocks/movies/_saved/movies_saved.css");
+@import url("./blocks/movies/__list/movies__list.css");
+@import url("./blocks/movies/__list/_saved/movies__list_saved.css");
+
+/* подключаем стили блока movie */
+@import url("./blocks/movie/movie.css");
+@import url("./blocks/movie/__poster/movie__poster.css");
+@import url("./blocks/movie/__infobox/movie__infobox.css");
+@import url("./blocks/movie/__name/movie__name.css");
+@import url("./blocks/movie/__duration/movie__duration.css");
+@import url("./blocks/movie/__save-button/movie__save-button.css");
+@import url("./blocks/movie/__save-button/_active/movie__save-button_active.css");
+@import url("./blocks/movie/__save-button/_completed/movie__save-button_completed.css");
+@import url("./blocks/movie/__more-button/movies__more-button.css");
+
+/* подключаем стили блока footer */
+@import url("./blocks/footer/footer.css");
+@import url("./blocks/footer/__title/footer__title.css");
+@import url("./blocks/footer/__container/footer__container.css");
+@import url("./blocks/footer/__links/footer__links.css");
+@import url("./blocks/footer/__item/footer__item.css");
+@import url("./blocks/footer/__copyright/footer__copyright.css");
+
+/* подключаем стили блока lead */
+@import url("./blocks/lead/lead.css");
+@import url("./blocks/lead/__container/lead__container.css");
+@import url("./blocks/lead/__logo/lead__logo.css");
+@import url("./blocks/lead/__entry-button/lead__entry-button.css");
+@import url("./blocks/lead/__entry-link/lead__entry-link.css");
+@import url("./blocks/lead/__container-info/lead__container-info.css");
+@import url("./blocks/lead/__title/lead__title.css");
+@import url("./blocks/lead/__logo-diploma/lead__logo-diploma.css");
+@import url("./blocks/lead/__subtitle/lead__subtitle.css");
+@import url("./blocks/lead/__learn-more-button/lead__learn-more-button.css");
+
+/* подключаем стили блока about */
+@import url("./blocks/about/about.css");
+@import url("./blocks/about/__title/about__title.css");
+@import url("./blocks/about/__container/about__container.css");
+@import url("./blocks/about/__subtitle/about__subtitle.css");
+@import url("./blocks/about/__text/about__text.css");
+@import url("./blocks/about/__container-time-bar/about__container-time-bar.css");
+@import url("./blocks/about/about__time/about__time.css");
+@import url("./blocks/about/__work/about__work.css");
+
+/* подключаем стили блока technologies */
+@import url("./blocks/technologies/technologies.css");
+@import url("./blocks/technologies/__container/technologies__container.css");
+@import url("./blocks/technologies/__title/technologies__title.css");
+@import url("./blocks/technologies/__subtitle/technologies__subtitle.css");
+@import url("./blocks/technologies/__info/technologies__info.css");
+@import url("./blocks/technologies/__list/technologies__list.css");
+@import url("./blocks/technologies/__type/technologies__type.css");
+
+/* подключаем стили блока student */
+@import url("./blocks/student/student.css");
+@import url("./blocks/student/__title/student__title.css");
+@import url("./blocks/student/__container/student__container.css");
+@import url("./blocks/student/__intro/student__intro.css");
+@import url("./blocks/student/__intro-title/student__intro-title.css");
+@import url("./blocks/student/__intro-text/student__intro-text.css");
+@import url("./blocks/student/__intro-about/student__intro-about.css");
+@import url("./blocks/student/__avatar/student__avatar.css");
+@import url("./blocks/student/__links/student__links.css");
+@import url("./blocks/student/__portfolio/student__portfolio.css");
+@import url("./blocks/student/__portfolio-works/student__portfolio-works.css");
+@import url("./blocks/student/__portfolio-work/student__portfolio-work.css");
+@import url("./blocks/student/__work-link/student__work-link.css");
+@import url("./blocks/student/__work-text/student__work-text.css");
+@import url("./blocks/student/__work-pointer/student__work-pointer.css");
+
+/* подключаем стили блока profile */
+@import url("./blocks/profile/profile.css");
+@import url("./blocks/profile/__container/profile__container.css");
+@import url("./blocks/profile/__title/profile__title.css");
+@import url("./blocks/profile/__form/profile__form.css");
+@import url("./blocks/profile/__cell/profile__cell.css");
+@import url("./blocks/profile/__placeholder/profile__placeholder.css");
+@import url("./blocks/profile/__input/profile__input.css");
+@import url("./blocks/profile/__input/_type_error/profile__input_type_error.css");
+@import url("./blocks/profile/__input/_type_error/_active/profile__input_type_active.css");
+@import url("./blocks/profile/__input/_type_error-focus/profile__input_type_error-focus.css");
+@import url("./blocks/profile/__input-error/profile__input-error.css");
+@import url("./blocks/profile/__container-exit/profile__container-exit.css");
+@import url("./blocks/profile/__edit-link/profile__edit-link.css");
+@import url("./blocks/profile/__exit-link/profile__exit-link.css");
+
+/* подключаем стили блока register */
+@import url("./blocks/register/__cell/register__cell.css");
+@import url("./blocks/register/__placeholder/register__placeholder.css");
+@import url("./blocks/register/__input/register__input.css");
+@import url("./blocks/register/__container-exit-login/register__container-exit-login.css");
+
+/* подключаем стили блока login */
+@import url("./blocks/login/__form/login__form.css");
+@import url("./blocks/login/__placeholder/login__placeholder.css");
+@import url("./blocks/login/__input/login__input.css");
+@import url("./blocks/login/__container-exit-entry/__container-exit-entry.css");
+
+/* подключаем стили блока not-found */
+@import url("./blocks/not-found/not-found.css");
+@import url("./blocks/not-found/__container/not-found__container.css");
+@import url("./blocks/not-found/__title/not-found__title.css");
+@import url("./blocks/not-found/__subtitle/not-found__subtitle.css");
+@import url("./blocks/not-found/__link/not-found__link.css");
+
+/* подключаем стили блока menu */
+@import url("./blocks/menu/menu.css");
+@import url("./blocks/menu/_opened/menu_opened.css");
+@import url("./blocks/menu/__container/menu__container.css");
+@import url("./blocks/menu/__close-button/menu__close-button.css");
+@import url("./blocks/menu/__navigation/menu__navigation.css");
+@import url("./blocks/menu/__movies-links/menu__movies-links.css");
+@import url("./blocks/menu/__movies-link/menu__movies-link.css");
+@import url("./blocks/menu/__movies-link/_active/menu__movies-link_active.css");
+@import url("./blocks/menu/__profile-links/menu__profile-links.css");
+@import url("./blocks/menu/__profile-edit-button/menu__profile-edit-button.css");
+
+/* подключаем стили блока preloader */
+@import url("./blocks/preloader/preloader.css");
+@import url("./blocks/preloader/__container/preloader__container.css");
+@import url("./blocks/preloader/__round/preloader__round.css");

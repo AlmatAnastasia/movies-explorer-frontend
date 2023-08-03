@@ -1,0 +1,22 @@
+.technologies__type {
+  width: 90px;
+  height: 60px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.214;
+  letter-spacing: -0.56px;
+  text-align: center;
+  border-radius: 10px;
+  background-color: #303030;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+  .technologies__type {
+    width: 84px;
+    height: 57px;
+  }
+}

@@ -1,0 +1,7 @@
+@media screen and (max-width: 320px) {
+  .movies__list_saved {
+    grid-template-columns: repeat(auto-fit, 300px);
+    grid-row-gap: 23px;
+    max-height: 450px;
+  }
+}

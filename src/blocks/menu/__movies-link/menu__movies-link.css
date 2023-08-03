@@ -1,0 +1,11 @@
+.menu__movies-link {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .menu__movies-link {
+    display: flex;
+    justify-content: center;
+    width: fit-content;
+  }
+}

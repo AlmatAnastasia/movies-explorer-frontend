@@ -1,0 +1,39 @@
+.about__container-time-bar {
+  margin-top: 110px;
+  display: grid;
+  max-width: 1140px;
+  grid-template-columns: 228px 912px;
+  grid-template-rows: 36px 17px;
+  row-gap: 14px;
+}
+
+@media screen and (max-width: 1279px) {
+  .about__container-time-bar {
+    max-width: 800px;
+    grid-template-columns: 20% 80%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .about__container-time-bar {
+    margin-top: 93px;
+    display: grid;
+    grid-template-columns: 140px 528px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .about__container-time-bar {
+    max-width: 300px;
+    grid-template-columns: 20% 80%;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .about__container-time-bar {
+    margin-top: 58px;
+    display: grid;
+    grid-template-columns: 100px 184px;
+    row-gap: 9px;
+  }
+}
