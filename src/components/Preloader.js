@@ -1,4 +1,5 @@
 // Preloader — отвечает за работу прелоадера
+
 export default function Preloader() {
   return (
     <div className="preloader">

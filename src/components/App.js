@@ -1,4 +1,6 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+// App — корневой компонент приложения
+import { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Main from "./Main";
 import Movies from "./Movies";
@@ -7,11 +9,55 @@ import Profile from "./Profile";
 import Register from "./Register";
 import Login from "./Login";
 import NotFoundPage from "./NotFoundPage";
+import CurrentUserContext from "../contexts/CurrentUserContext";
+import { register, authorize, checkToken } from "../utils/apiAuth.js";
+import moviesApi from "../utils/MoviesApi.js";
+import api from "../utils/MainApi.js";
 
-// App — корневой компонент приложения
 function App() {
+  const searchText = localStorage.getItem("searchText");
+  const shortMovieStatus = localStorage.getItem("shortMovieStatus");
+  // переменные состояния
+  const [isSearchFormOpenMovies, setIsSearchFormOpenMovies] = useState(false);
+  const [isSearchFormOpenSavedMovies, setIsSearchFormOpenSavedMovies] =
+    useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isShortMovie, setIsShortMovie] = useState(false);
+  const [isShortSavedMovie, setIsShortSavedMovie] = useState(false);
+  const [movies, setMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
+  const [sortSavedMovies, setSortSavedMovies] = useState([]);
+  const [isRenderLoading, setIsRenderLoading] = useState(false);
+  const [isNotFound, setIsNotFound] = useState({
+    status: false,
+    message: "",
+  });
+  const [isRequestErrorMessage, setIsRequestErrorMessage] = useState("");
+  const [inputSearchMovie, setInputSearchMovie] = useState("");
+  const [inputSearchSavedMovie, setInputSearchSavedMovie] = useState("");
+  const [isSearchList, setIsSearchList] = useState(false);
+  const [isSearchFormSubmit, setIsSearchFormSubmit] = useState(false);
+  const [isSearchFormValid, setIsSearchFormValid] = useState(false);
+  const [isWidth, setIsWidth] = useState(window.innerWidth);
+  const [isMovieCounter, setIsMovieCounter] = useState({
+    finalValue: 0,
+    step: 0,
+  });
+  const [isSaveData, setIsSaveData] = useState({
+    searchText: "",
+    shortMovieStatus: null,
+  });
+  const [userRegister, setUserRegister] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false); // статус пользователя
+  const [currentUser, setCurrentUser] = useState({
+    id: "",
+    email: "",
+    name: "",
+    isGetData: false,
+  });
   const navigate = useNavigate();
+  const stringToBoolean = (stringValue) =>
+    stringValue === "true" ? true : false;
   // переадресовать пользователя на страницу /sign-up
   const onRegister = () => {
     navigate("/sign-up", { replace: true });
@@ -20,57 +66,569 @@ function App() {
   const onLogin = () => {
     navigate("/sign-in", { replace: true });
   };
+  // открыть/закрыть форму поиска /movies
+  const handleSearchFormMoviesRender = () => {
+    setIsSearchFormOpenMovies(!isSearchFormOpenMovies);
+  };
+  // открыть/закрыть форму поиска /saved-movies
+  const handleSearchFormSavedMoviesRender = () => {
+    setIsSearchFormOpenSavedMovies(!isSearchFormOpenSavedMovies);
+  };
   // переадресовать пользователя на страницу /movies
   const onMovies = () => {
     navigate("/movies", { replace: true });
+    setIsSearchFormOpenMovies(true);
   };
-  // открыть меню
+  // переадресовать пользователя на страницу /saved-movies
+  const onSavedMovies = () => {
+    navigate("/saved-movies", { replace: true });
+    setIsSearchFormOpenSavedMovies(true);
+  };
+  // открыть/закрыть меню
   const handleMenuButtonClick = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+  // переключить чекбокс поиска короткометражек
+  const handleSearchCheckboxMovieClick = () => {
+    setIsShortMovie(!isShortMovie);
+  };
+  const handleSearchCheckboxSavedMovieClick = () => {
+    setIsShortSavedMovie(!isShortSavedMovie);
+  };
+  // выбор варианта из выпадающего списка
+  const handleSearchListClick = () => {
+    setIsSearchList(!isSearchList);
+  };
+  // изменить статус поля формы поиска
+  const changeSearchFormStatus = () => {
+    setIsSearchFormSubmit(!isSearchFormSubmit);
+  };
+  // добавление фильмов
+  const handleMoreButtonClick = () => {
+    setIsMovieCounter({
+      finalValue: isMovieCounter.finalValue + isMovieCounter.step,
+      step: isMovieCounter.step,
+    });
+  };
+  // отправка формы поиска
+  const handleSearchFormSubmit = (e) => {
+    e.preventDefault();
+    e.preventDefault();
+    changeSearchFormStatus();
+    // очистить локальное хранилище (localStorage)
+    localStorage.removeItem("searchText");
+    localStorage.removeItem("movies");
+    localStorage.removeItem("shortMovieStatus");
+    // сохранить данные запроса в localStorage
+    // сохранить текст запроса, найденные фильмы и состояние переключателя короткометражек
+    localStorage.setItem("searchText", inputSearchMovie);
+    localStorage.setItem("movies", JSON.stringify(movies));
+    localStorage.setItem(
+      "shortMovieStatus",
+      isShortMovie === null ? false : isShortMovie
+    );
+  };
+  // очистить локальное хранилище (localStorage)
+  // localStorage.removeItem("searchText");
+  // localStorage.removeItem("shortMovieStatus");
+  // localStorage.removeItem("movies");
+
+  // проверка результата запроса на ошибки
+  const checkRequestForErrors = (res) => {
+    if (res === 400) {
+      setIsRequestErrorMessage("Ошибка 400: Ошибка проверки");
+    } else if (res === 409) {
+      setIsRequestErrorMessage("Ошибка 409: Такой пользователь уже существует");
+    } else if (res === 401) {
+      setIsRequestErrorMessage("Ошибка 401: Неправильные почта или пароль");
+    } else {
+      return 200;
+    }
+  };
+  // добавить новый фильм на сервер
+  const handleAddNewMovie = (movie) => {
+    api
+      .addMovie(movie)
+      .then((newMovie) => {
+        // проверка результата запроса на ошибки
+        const status = checkRequestForErrors(newMovie);
+        if (status === 200) {
+          // расширенная копия текущего массива savedMovies
+          setSavedMovies([newMovie, ...savedMovies]);
+        }
+      })
+      .catch((error) => {
+        // обработать ошибки
+        console.log(`${error}. Запрос не выполнен!`); // вывести ошибку в консоль
+      });
+  };
+  // удалить фильм с сервера
+  const handleDeleteMovie = (movie) => {
+    api
+      .deleteMovie(movie._id)
+      .then((newMovie) => {
+        // проверка результата запроса на ошибки
+        const status = checkRequestForErrors(newMovie);
+        if (status === 200) {
+          setSavedMovies((state) => state.filter((c) => c._id !== movie._id));
+        }
+      })
+      .catch((error) => {
+        // обработать ошибки
+        console.log(`${error}. Запрос не выполнен!`); // вывести ошибку в консоль
+      });
+  };
+  // сохранение/удаление фильма
+  const handleSaveButtonClick = (movie) => {
+    movie.status === "isSaved"
+      ? handleAddNewMovie(movie)
+      : handleDeleteMovie(movie);
+  };
+  // изменить собственную информацию (данные профиля) на личном сервере
+  const handleEditButtonClick = ({ name, email }) => {
+    setIsRenderLoading(true);
+    api
+      .editProfileInfo(name, email)
+      .then((info) => {
+        const { _id, email, name } = info;
+        // // обновление стейт-переменной
+        setCurrentUser({
+          id: _id,
+          email: email,
+          name: name,
+          isGetData: true,
+        });
+      })
+      .catch((error) => {
+        // обработать ошибки
+        console.log(`${error}. Запрос не выполнен!`); // вывести ошибку в консоль
+      })
+      .finally(() => {
+        setIsRenderLoading(false);
+      });
+  };
+  // выход из аккаунта
+  const handleExitButtonClick = () => {
+    setCurrentUser({});
+    localStorage.removeItem("jwt");
+    localStorage.removeItem("userEmail");
+    localStorage.removeItem("userPassword");
+    // переадресовать пользователя на страницу /
+    navigate("/", { replace: true });
+  };
+  // добавить параметры фильма
+  const addMovieStatus = (name, movie) => {
+    movie.findName = name;
+  };
+  // добавить сообщение с результатом поиска
+  const addFindMessage = (findMovies) => {
+    let findMessage = {};
+    if (findMovies.length === 0) {
+      findMessage = { status: true, message: "Ничего не найдено" };
+    } else {
+      findMessage = { status: false, message: "" };
+    }
+    setIsNotFound(findMessage);
+  };
+  // сортировка фильмов
+  const sortMovies = (allMovies) => {
+    const searchValue = inputSearchMovie.toLowerCase();
+    let findMovies = [];
+    allMovies.forEach((movie) => {
+      // совпадение по nameRU и nameEN
+      if (
+        movie.nameRU.toLowerCase().includes(searchValue) &&
+        movie.nameRU.toLowerCase().includes(searchValue)
+      ) {
+        addMovieStatus("nameRU", movie);
+        findMovies.push(movie);
+      } else {
+        // совпадение по nameRU
+        if (movie.nameRU.toLowerCase().includes(searchValue)) {
+          addMovieStatus("nameRU", movie);
+          findMovies.push(movie);
+        }
+        // совпадение по nameEN
+        if (movie.nameEN.toLowerCase().includes(searchValue)) {
+          addMovieStatus("nameEN", movie);
+          findMovies.push(movie);
+        }
+      }
+      findMovies.forEach((movie) => {
+        const save = savedMovies.filter((m) => m.movieId === movie.id);
+        save.length !== 0
+          ? (movie.status = "isComplited")
+          : (movie.status = "isSaved");
+      });
+      setMovies(findMovies);
+      addFindMessage(findMovies);
+    });
+  };
+  // запрос фильмов
+  const requestMovies = () => {
+    setIsRenderLoading(true);
+    moviesApi
+      .getInitialCards()
+      .then((allMovies) => {
+        sortMovies(allMovies);
+      })
+      .catch((error) => {
+        // обработать ошибки
+        setIsNotFound({
+          status: true,
+          message:
+            "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз",
+        });
+        console.log(`${error}. Запрос не выполнен!`); // вывести ошибку в консоль
+      })
+      .finally(() => {
+        setIsRenderLoading(false);
+      });
+  };
+  // добавить данные запроса из localStorage
+  const addDataLocalStorage = () => {
+    const movies = localStorage.movies
+      ? JSON.parse(localStorage.getItem("movies"))
+      : [];
+    setInputSearchMovie(searchText);
+    setIsShortMovie(stringToBoolean(shortMovieStatus));
+    movies.forEach((movie) => {
+      const save = savedMovies.filter((m) => m.movieId === movie.id);
+      save.length !== 0
+        ? (movie.status = "isComplited")
+        : (movie.status = "isSaved");
+    });
+    setMovies(movies);
+    setIsSaveData({
+      searchText: searchText,
+      shortMovieStatus: shortMovieStatus,
+    });
+  };
+  // обработка отправки формы формы страницы Register
+  // регистрация пользователя
+  const handleSignUpSubmit = (inputText, inputEmail, inputPassword) => {
+    return (e) => {
+      e.preventDefault();
+      // сохранить password и email в localStorage
+      localStorage.setItem("userPassword", inputPassword);
+      localStorage.setItem("userEmail", inputEmail);
+      setIsRenderLoading(true);
+      register(inputEmail, inputPassword)
+        .then((res) => {
+          // проверка результата запроса на ошибки
+          const status = checkRequestForErrors(res);
+          if (status === 200) {
+            setUserRegister(true);
+            // перенаправить на страницу /movies
+            onMovies();
+            setCurrentUser({
+              email: inputEmail,
+              name: inputText,
+              isGetData: true,
+            });
+          }
+        })
+        .catch((error) => console.log(`${error}. Запрос не выполнен!`)) // вывести ошибку в консоль
+        .finally(() => {
+          setIsRenderLoading(false);
+        });
+    };
+  };
+  // обработка отправки формы формы страницы Login
+  // авторизация пользователя
+  // проверка валидности токена
+  const handleSignInSubmit = (inputEmail, inputPassword) => {
+    return (e) => {
+      e.preventDefault();
+      // сохранить email и password в localStorage
+      localStorage.setItem("userPassword", inputPassword);
+      localStorage.setItem("userEmail", inputEmail);
+      setIsRenderLoading(true);
+      authorize(inputEmail, inputPassword)
+        .then((res) => {
+          // проверка результата запроса на ошибки
+          const status = checkRequestForErrors(res);
+          if (status === 200) {
+            // сохранить токен в localStorage
+            localStorage.setItem("jwt", res.token);
+            // перенаправить на страницу /movies
+            onMovies();
+            setLoggedIn(true);
+          }
+        })
+        .then(() => checkToken())
+        .then((res) => {
+          localStorage.setItem("userEmail", res.email);
+        })
+        .catch((error) => console.log(`${error}. Запрос не выполнен!`)) // вывести ошибку в консоль
+        .finally(() => {
+          setIsRenderLoading(false);
+        });
+    };
+  };
+  // загрузить карточки сохраненных фильмов с личного сервера
+  const addSavedMovies = () => {
+    api
+      .getInitialCards()
+      .then((allSavedMovies) => {
+        allSavedMovies.map((movie) => (movie.status = "isDelete"));
+        let resultMovies = allSavedMovies;
+        // поиск короткометражек
+        if (isShortSavedMovie) {
+          const shortMovies = allSavedMovies.filter((movie) => {
+            return movie.duration <= 40;
+          });
+          resultMovies = shortMovies;
+        }
+        setSavedMovies(resultMovies);
+      })
+      .catch((error) => {
+        // обработать ошибки
+        console.log(`${error}. Запрос не выполнен!`); // вывести ошибку в консоль
+      });
+  };
+  // перевод телефона из портретной ориентации в альбомную
+  const updateWidthScreen = () => {
+    setTimeout(() => {
+      setIsWidth(window.innerWidth);
+    }, 3000);
+  };
+  // поиск короткометражек
+  useEffect(() => {
+    const saveMovies = JSON.parse(localStorage.getItem("movies"));
+    const allMovies = saveMovies ? saveMovies : movies;
+    if (isShortMovie) {
+      const shortMovies = allMovies.filter((movie) => {
+        return movie.duration <= 40;
+      });
+      setMovies(shortMovies);
+      const conditionEqual =
+        isSaveData.searchText === inputSearchMovie &&
+        stringToBoolean(isSaveData.shortMovieStatus) === isShortMovie;
+      // сохранить данные запроса в localStorage
+      // сохранить найденные фильмы и состояние переключателя короткометражек
+      if (isSearchFormSubmit && !conditionEqual) {
+        localStorage.removeItem("movies");
+        localStorage.setItem("movies", JSON.stringify(shortMovies));
+        localStorage.setItem("shortMovieStatus", isShortMovie);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isShortMovie, isRenderLoading]);
+  // извлечь данные запроса из localStorage при монтировании Movies
+  useEffect(() => {
+    // добавить данные запроса из localStorage
+    if (isSearchFormOpenMovies === true) {
+      // добавить данные запроса из localStorage
+      addDataLocalStorage();
+    }
+  }, [isSearchFormOpenMovies]);
+  // загрузить данные с сервера при монтировании SavedMovies
+  useEffect(() => {
+    if (isSearchFormOpenSavedMovies === true) {
+      // загрузить карточки сохраненных фильмов с личного сервера
+      addSavedMovies();
+    }
+  }, [isSearchFormOpenSavedMovies, isShortSavedMovie]);
+  // загрузить отсортированные сохраненные данные
+  useEffect(() => {
+    const sort = [];
+    savedMovies.forEach((movie) => {
+      if (movie.nameRU.toLowerCase().includes(inputSearchSavedMovie) === true) {
+        sort.push(movie);
+      }
+    });
+    const result = inputSearchSavedMovie === "" ? savedMovies : sort;
+    setSortSavedMovies(result);
+  }, [savedMovies, inputSearchSavedMovie]);
+  // добавить информацию о пользователе с сервера
+  useEffect(() => {
+    const token = localStorage.getItem("jwt"); // личный токен
+    if (token) {
+      // эффект при монтировании
+      api
+        .getProfileInfo()
+        .then((info) => {
+          const { _id, email, name } = info;
+          // // обновление стейт-переменной
+          setCurrentUser({
+            id: _id,
+            email: email,
+            name: name,
+            isGetData: true,
+          });
+        })
+        .catch((error) => {
+          // обработать ошибки
+          console.log(`${error}. Запрос не выполнен!`); // вывести ошибку в консоль
+        });
+    }
+  }, [loggedIn]);
+  // Взаимодействие с сервером beatfilm-movies
+  // загрузить карточки фильмов с сервера
+  useEffect(() => {
+    const conditionEqual =
+      isSaveData.searchText === inputSearchMovie &&
+      stringToBoolean(isSaveData.shortMovieStatus) === isShortMovie;
+    const setData = isSaveData.shortMovieStatus !== null;
+    if (!setData && inputSearchMovie) {
+      requestMovies();
+    }
+    if (setData) {
+      const conditionEqual =
+        isSaveData.searchText === inputSearchMovie &&
+        stringToBoolean(isSaveData.shortMovieStatus) === isShortMovie;
+      const conditionSearch = inputSearchMovie.length > 1 && !conditionEqual;
+      if (conditionSearch) {
+        // запрос фильмов
+        requestMovies();
+      }
+    }
+    if (conditionEqual && isSearchFormOpenMovies === true) {
+      // добавить данные запроса из localStorage
+      addDataLocalStorage();
+    }
+  }, [inputSearchMovie, isShortMovie]);
+  useEffect(() => {
+    window.addEventListener("resize", updateWidthScreen);
+    return () => window.removeEventListener("resize", updateWidthScreen);
+  }, []);
+  // адаптивный экран (количество фильмов)
+  useEffect(() => {
+    const widthScreen = window.innerWidth;
+    if (1160 <= widthScreen) {
+      setIsMovieCounter({ finalValue: 12, step: 3 });
+    } else if (767 <= widthScreen) {
+      setIsMovieCounter({ finalValue: 8, step: 2 });
+    } else {
+      setIsMovieCounter({ finalValue: 5, step: 2 });
+    }
+  }, [isWidth]);
 
   return (
-    <div className="page">
-      <Routes>
-        {/* страница «О проекте» */}
-        <Route
-          path="/"
-          element={<Main />}
-          onRegister={onRegister}
-          onLogin={onLogin}
-        />
-        {/* страница «Фильмы» */}
-        <Route
-          path="/movies"
-          element={
-            <Movies
-              onMenuClick={handleMenuButtonClick}
-              isMenuOpen={isMenuOpen}
-            />
-          }
-        />
-        {/* страница «Сохранённые фильмы» */}
-        <Route path="/saved-movies" element={<SavedMovies />} />
-        {/* страница страница с профилем пользователя */}
-        <Route
-          path="/profile"
-          element={
-            <Profile
-              onMenuClick={handleMenuButtonClick}
-              isMenuOpen={isMenuOpen}
-            />
-          }
-        />
-        {/* /sign-up — регистрация пользователя */}
-        <Route path="/sign-up" element={<Register onLogin={onLogin} />} />
-        {/* /sign-in — авторизация пользователя */}
-        <Route
-          path="/sign-in"
-          element={<Login onMovies={onMovies} onRegister={onRegister} />}
-        />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </div>
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="page">
+        <Routes>
+          {/* страница «О проекте» */}
+          <Route
+            path="/"
+            element={<Main />}
+            onRegister={onRegister}
+            onLogin={onLogin}
+          />
+          {/* страница «Фильмы» */}
+          <Route
+            path="/movies"
+            element={
+              <Movies
+                onMovies={onMovies}
+                onSavedMovies={onSavedMovies}
+                onMenuClick={handleMenuButtonClick}
+                isMenuOpen={isMenuOpen}
+                isOpenMovies={isSearchFormOpenMovies}
+                isOpenSavedMovies={isSearchFormOpenSavedMovies}
+                onSearchFormMoviesRender={handleSearchFormMoviesRender}
+                onSearchFormSavedMoviesRender={
+                  handleSearchFormSavedMoviesRender
+                }
+                onSubmit={handleSearchFormSubmit}
+                isNotFound={isNotFound}
+                isSaveData={isSaveData}
+                onUpdateInputSearch={setInputSearchMovie}
+                inputSearchValue={inputSearchMovie}
+                isShortMovie={isShortMovie}
+                onCheckboxChange={handleSearchCheckboxMovieClick}
+                isRenderLoading={isRenderLoading}
+                movies={movies}
+                onSearchListClick={handleSearchListClick}
+                isSearchList={isSearchList}
+                setSearchFormValid={setIsSearchFormValid}
+                isSearchForm={isSearchFormSubmit}
+                onSaveButtonClick={handleSaveButtonClick}
+                onMoreButtonClick={handleMoreButtonClick}
+                isMovieCounter={isMovieCounter}
+                isSearchFormValid={isSearchFormValid}
+              />
+            }
+          />
+          {/* страница «Сохранённые фильмы» */}
+          <Route
+            path="/saved-movies"
+            element={
+              <SavedMovies
+                onMovies={onMovies}
+                onSavedMovies={onSavedMovies}
+                onMenuClick={handleMenuButtonClick}
+                isMenuOpen={isMenuOpen}
+                isOpenMovies={isSearchFormOpenMovies}
+                isOpenSavedMovies={isSearchFormOpenSavedMovies}
+                onSearchFormMoviesRender={handleSearchFormMoviesRender}
+                onSearchFormSavedMoviesRender={
+                  handleSearchFormSavedMoviesRender
+                }
+                onSubmit={handleSearchFormSubmit}
+                isNotFound={isNotFound}
+                isSaveData={isSaveData}
+                onUpdateInputSearch={setInputSearchSavedMovie}
+                inputSearchValue={inputSearchSavedMovie}
+                isShortMovie={isShortSavedMovie}
+                onCheckboxChange={handleSearchCheckboxSavedMovieClick}
+                isRenderLoading={isRenderLoading}
+                movies={sortSavedMovies}
+                onSearchListClick={handleSearchListClick}
+                isSearchList={isSearchList}
+                setSearchFormValid={setIsSearchFormValid}
+                isSearchForm={isSearchFormSubmit}
+                onSaveButtonClick={handleSaveButtonClick}
+                onMoreButtonClick={handleMoreButtonClick}
+                isMovieCounter={isMovieCounter}
+                isSearchFormValid={isSearchFormValid}
+              />
+            }
+          />
+          {/* страница страница с профилем пользователя */}
+          <Route
+            path="/profile"
+            element={
+              <Profile
+                isMenuOpen={isMenuOpen}
+                onMenuClick={handleMenuButtonClick}
+                onMovies={onMovies}
+                onSavedMovies={onSavedMovies}
+                onClickEditButton={handleEditButtonClick}
+                onClickExitButton={handleExitButtonClick}
+              />
+            }
+          />
+          {/* /sign-up — регистрация пользователя */}
+          <Route
+            path="/sign-up"
+            element={
+              <Register
+                onLogin={onLogin}
+                userRegister={userRegister}
+                setUserRegister={setUserRegister}
+                isRequestErrorMessager={isRequestErrorMessage}
+                onClick={handleSignUpSubmit}
+              />
+            }
+          />
+          {/* /sign-in — авторизация пользователя */}
+          <Route
+            path="/sign-in"
+            element={
+              <Login
+                onMovies={onMovies}
+                onRegister={onRegister}
+                isRequestErrorMessage={isRequestErrorMessage}
+                onClick={handleSignInSubmit}
+              />
+            }
+          />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 

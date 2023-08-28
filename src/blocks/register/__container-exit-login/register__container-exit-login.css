@@ -1,5 +1,5 @@
 .register__container-exit-login {
-  margin-top: 153px;
+  margin-top: 123px;
   margin-bottom: 55px;
 }
 
@@ -11,7 +11,7 @@
 
 @media screen and (max-width: 320px) {
   .register__container-exit-login {
-    margin-top: 241px;
+    margin-top: 211px;
     margin-bottom: 15px;
   }
 }

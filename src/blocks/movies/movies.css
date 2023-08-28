@@ -1,27 +1,33 @@
 .movies {
-  margin: 118px 70px 159px;
+  margin: 166px 70px 159px;
+}
+
+@media screen and (max-width: 1279px) {
+  .movies {
+    margin: 132px 8px 159px;
+  }
 }
 
 @media screen and (max-width: 768px) {
   .movies {
-    margin: 132px 30px 159px;
+    margin: 263px 30px 159px;
   }
 }
 
 @media screen and (max-width: 450px) {
   .movies {
-    margin: 132px 20px 159px;
+    margin: 263px 20px 159px;
   }
 }
 
 @media screen and (max-width: 350px) {
   .movies {
-    margin: 132px 10px 159px;
+    margin: 263px 10px 159px;
   }
 }
 
 @media screen and (max-width: 320px) {
   .movies {
-    margin: 91px 10px 159px;
+    margin: 181px 10px 159px;
   }
 }

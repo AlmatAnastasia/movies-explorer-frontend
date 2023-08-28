@@ -25,7 +25,7 @@ export default function AboutMe() {
         <img
           className="student__avatar"
           src={studentAvatar}
-          alt='Изображение "Аватар студента"'
+          alt='Изображение &quot;Аватар студента&quot;'
         />
         <ul className="student__links list">
           <li>

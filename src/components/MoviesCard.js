@@ -1,31 +1,56 @@
-// MoviesCard — компонент одной карточки фильма.
-export default function MoviesCard({ movie, isActive, isCompleted }) {
+// MoviesCard — компонент одной карточки фильма
+import { baseUrlServer } from "../utils/utils.js";
+
+export default function MoviesCard({ type, movie, onSaveButtonClick }) {
+  const savedMovies = type === "savedMovies";
   const movieSaveButtonClassName =
     movie !== undefined &&
-    `movie__save-button indicator ${isActive && "movie__save-button_active"}`;
+    `movie__save-button ${
+      movie.status === "isSaved" && "movie__save-button_active indicator"
+    } ${movie.status === "isComplited" && "movie__save-button_completed"} ${
+      movie.status === "isDelete" && "movie__save-button_delete indicator"
+    }`;
+  const movieImageLink = savedMovies
+    ? movie.image
+    : baseUrlServer + movie.image.url;
+  const minutes = movie.duration % 60;
+  const hour = (movie.duration - minutes) / 60;
+  // изменение состояния кнопки
+  const handleButtonClick = () => {
+    onSaveButtonClick(movie);
+  };
   return (
     movie !== undefined && (
       <li className="movie">
-        <img
-          className="movie__poster"
-          src={movie.link}
-          alt={`Постер фильма &quot;${movie.name}&quot;`}
-        />
+        <a
+          className="movie__link link"
+          href={movie.trailerLink}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <img
+            className="movie__poster"
+            src={movieImageLink}
+            alt={`Постер фильма &quot;${movie.nameRU}&quot;`}
+          />
+        </a>
+
         <div className="movie__infobox">
-          <h2 className="movie__name much-text">{movie.name}</h2>
-          <p className="movie__duration">{movie.duration}</p>
+          <h2 className="movie__name much-text">{movie.nameRU}</h2>
+          <p className="movie__duration">
+            {hour !== 0 && `${hour}ч`}
+            {`${minutes}м`}
+          </p>
         </div>
         <button
           type="button"
           name="save-button"
-          aria-label='Кнопка &quot;Сохранить&quot;'
-          className={
-            isCompleted
-              ? " movie__save-button movie__save-button_completed"
-              : movieSaveButtonClassName
-          }
+          aria-label='Кнопка "Сохранить"'
+          className={movieSaveButtonClassName}
+          onClick={handleButtonClick}
+          disabled={movie.status === "isComplited" ? true : false}
         >
-          {isActive && "Сохранить"}
+          {movie.status === "isSaved" && "Сохранить"}
         </button>
       </li>
     )

@@ -29,6 +29,7 @@
 <p>Адрес репозитория: Frontend https://github.com/AlmatAnastasia/movies-explorer-frontend<br>
 IP: 158.160.63.218<br>
 Frontend:  https://almatanastasia.diploma.fr.nomoreparties.sbs</p>
+Pull request: https://github.com/AlmatAnastasia/movies-explorer-frontend/pull/2</p>
 
 <div id="figma"></div>
 <h2>Ссылка на макет в Figma</h2> 
@@ -61,6 +62,8 @@ Frontend:  https://almatanastasia.diploma.fr.nomoreparties.sbs</p>
 .
 ├── blocks          # Файлы стилей блоков<br>
 ├── components      # Файлы компонентов<br>
+├── contexts        # Файлы с объектами контекста<br>
+├── hooks           # Файлы с кастомными хуками<br>
 ├── images          # Файлы изображений<br>
 ├── utils           # Файлы утилитарных модулей (отдельные функции и константы)<br>
 ├── vendor          # Файлы сторонних библиотек<br>

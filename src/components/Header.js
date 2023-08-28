@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import headerLogo from "../images/logo.svg";
 
-export default function Header({ onMenuClick }) {
+export default function Header({ onMovies, onSavedMovies, onMenuClick }) {
   return (
     <header className="header">
       <Link className="header__logo-link link" to="/">
@@ -17,13 +17,18 @@ export default function Header({ onMenuClick }) {
           <li>
             <Link
               className="header__movies-link link header__movies-link_active"
+              onClick={onMovies}
               to="/movies"
             >
               Фильмы
             </Link>
           </li>
           <li>
-            <Link className="header__movies-link link" to="/saved-movies">
+            <Link
+              className="header__movies-link link"
+              onClick={onSavedMovies}
+              to="/saved-movies"
+            >
               Сохранённые фильмы
             </Link>
           </li>
@@ -51,7 +56,7 @@ export default function Header({ onMenuClick }) {
           aria-label='Кнопка &quot;Меню&quot;'
           className="header__profile-menu-button indicator"
           onClick={onMenuClick}
-        ></button>
+        />
       </nav>
     </header>
   );
