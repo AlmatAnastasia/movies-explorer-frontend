@@ -14,7 +14,7 @@ export default function Register({
   onLogin,
   userRegister,
   setUserRegister,
-  isRequestErrorMessage,
+  isErrorMessage,
   onClick,
 }) {
   const inputRegisterTextSelector = `register__${inputTextSelector}`;
@@ -53,7 +53,7 @@ export default function Register({
           <img
             className="register__logo logo"
             src={registerLogo}
-            alt='Логотип сервиса &quot;Фильмы&quot;'
+            alt='Логотип сервиса "Фильмы"'
           />
         </Link>
         <h1 className="register__title title title-center">
@@ -141,12 +141,12 @@ export default function Register({
       </form>
       <div className="register__container-exit-login container-exit">
         <p className="register__error-message error-message">
-          {isRequestErrorMessage}
+          {isErrorMessage}
         </p>
         <button
           type="button"
           name="login-button"
-          aria-label='Кнопка &quot;Зарегистрироваться&quot;'
+          aria-label='Кнопка "Зарегистрироваться"'
           className={`register__login-button blue-button ${
             isValid ? "indicator" : "blue-button_disabled indicator_disabled"
           }`}
@@ -168,7 +168,7 @@ export default function Register({
           <button
             type="button"
             name="entry-button"
-            aria-label='Кнопка &quot;Войти&quot;'
+            aria-label='Кнопка "Войти"'
             className="register__entry-button button indicator"
             onClick={onLogin}
           >

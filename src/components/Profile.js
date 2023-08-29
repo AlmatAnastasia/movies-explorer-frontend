@@ -18,7 +18,10 @@ export default function Profile({
   onSavedMovies,
   onClickEditButton,
   onClickExitButton,
+  isErrorMessage,
+  isSuccessMessage,
 }) {
+  const textMessage = isSuccessMessage ? isSuccessMessage : isErrorMessage;
   // данные текущего пользователя
   const currentUser = useContext(CurrentUserContext);
   const inputProfileEmailSelector = `profile__${inputEmailSelector}`;
@@ -115,6 +118,13 @@ export default function Profile({
             </fieldset>
           </form>
           <div className="profile__container-exit">
+            <p
+              className={`profile__error-message error-message ${
+                isSuccessMessage !== "" && "error-message_success"
+              }`}
+            >
+              {textMessage}
+            </p>
             <button
               type="button"
               name="edit-button"

@@ -1,5 +1,5 @@
 .profile__container-exit {
-  margin-top: 206px;
+  margin-top: 176px;
   display: flex;
   flex-direction: column;
   row-gap: 16px;
@@ -10,13 +10,13 @@
 
 @media screen and (max-width: 768px) {
   .profile__container-exit {
-    margin-top: 196px;
+    margin-top: 166px;
   }
 }
 
 @media screen and (max-width: 320px) {
   .profile__container-exit {
-    margin-top: 365px;
+    margin-top: 335px;
     font-size: 0.75rem;
     line-height: 1.25;
   }

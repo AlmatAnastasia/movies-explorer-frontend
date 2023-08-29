@@ -9,12 +9,7 @@ import {
   inputPasswordSelector,
 } from "../utils/utils.js";
 
-export default function Login({
-  onMovies,
-  onRegister,
-  isRequestErrorMessage,
-  onClick,
-}) {
+export default function Login({ onRegister, isErrorMessage, onClick }) {
   const inputLoginEmailSelector = `login__${inputEmailSelector}`;
   const inputLoginPasswordSelector = `login__${inputPasswordSelector}`;
   // валидация
@@ -40,7 +35,7 @@ export default function Login({
           <img
             className="login__logo logo"
             src={loginLogo}
-            alt='Логотип сервиса &quot;Фильмы&quot;'
+            alt='Логотип сервиса "Фильмы"'
           />
         </Link>
         <h1 className="login__title title title-center">Рады видеть!</h1>
@@ -101,13 +96,11 @@ export default function Login({
         </fieldset>
       </form>
       <div className="login__container-exit-entry container-exit">
-        <p className="login__error-message error-message">
-          {isRequestErrorMessage}
-        </p>
+        <p className="login__error-message error-message">{isErrorMessage}</p>
         <button
           type="button"
           name="entry-button"
-          aria-label='Кнопка &quot;Войти&quot;'
+          aria-label='Кнопка "Войти"'
           className={`login__entry-button blue-button ${
             isValid ? "indicator" : "blue-button_disabled indicator_disabled"
           }`}
@@ -129,7 +122,7 @@ export default function Login({
           <button
             type="button"
             name="register-button"
-            aria-label='Кнопка &quot;Регистрация&quot;'
+            aria-label='Кнопка "Регистрация"'
             className="login__register-button button indicator"
             onClick={onRegister}
           >

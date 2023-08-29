@@ -33,6 +33,7 @@ function App() {
     message: "",
   });
   const [isRequestErrorMessage, setIsRequestErrorMessage] = useState("");
+  const [isRequestSuccessMessage, setIsRequestSuccessMessage] = useState("");
   const [inputSearchMovie, setInputSearchMovie] = useState("");
   const [inputSearchSavedMovie, setInputSearchSavedMovie] = useState("");
   const [isSearchList, setIsSearchList] = useState(false);
@@ -60,11 +61,19 @@ function App() {
     stringValue === "true" ? true : false;
   // переадресовать пользователя на страницу /sign-up
   const onRegister = () => {
+    setIsRequestErrorMessage("");
     navigate("/sign-up", { replace: true });
   };
   // переадресовать пользователя на страницу /sign-in
   const onLogin = () => {
+    setIsRequestErrorMessage("");
     navigate("/sign-in", { replace: true });
+  };
+  // переадресовать пользователя на страницу /profile
+  const onProfile = () => {
+    setIsRequestErrorMessage("");
+    setIsRequestSuccessMessage("");
+    navigate("/profile", { replace: true });
   };
   // открыть/закрыть форму поиска /movies
   const handleSearchFormMoviesRender = () => {
@@ -150,33 +159,19 @@ function App() {
     api
       .addMovie(movie)
       .then((newMovie) => {
-        // проверка результата запроса на ошибки
-        const status = checkRequestForErrors(newMovie);
-        if (status === 200) {
-          // расширенная копия текущего массива savedMovies
-          setSavedMovies([newMovie, ...savedMovies]);
-        }
+        // расширенная копия текущего массива savedMovies
+        setSavedMovies([newMovie, ...savedMovies]);
       })
-      .catch((error) => {
-        // обработать ошибки
-        console.log(`${error}. Запрос не выполнен!`); // вывести ошибку в консоль
-      });
+      .catch((error) => console.log(`${error}. Запрос не выполнен!`)); // вывести ошибку в консоль
   };
   // удалить фильм с сервера
   const handleDeleteMovie = (movie) => {
     api
       .deleteMovie(movie._id)
-      .then((newMovie) => {
-        // проверка результата запроса на ошибки
-        const status = checkRequestForErrors(newMovie);
-        if (status === 200) {
-          setSavedMovies((state) => state.filter((c) => c._id !== movie._id));
-        }
+      .then(() => {
+        setSavedMovies((state) => state.filter((c) => c._id !== movie._id));
       })
-      .catch((error) => {
-        // обработать ошибки
-        console.log(`${error}. Запрос не выполнен!`); // вывести ошибку в консоль
-      });
+      .catch((error) => console.log(`${error}. Запрос не выполнен!`)); // вывести ошибку в консоль
   };
   // сохранение/удаление фильма
   const handleSaveButtonClick = (movie) => {
@@ -190,6 +185,7 @@ function App() {
     api
       .editProfileInfo(name, email)
       .then((info) => {
+        setIsRequestSuccessMessage("Данные профиля усешно сохранены!");
         const { _id, email, name } = info;
         // // обновление стейт-переменной
         setCurrentUser({
@@ -201,6 +197,7 @@ function App() {
       })
       .catch((error) => {
         // обработать ошибки
+        setIsRequestErrorMessage(error);
         console.log(`${error}. Запрос не выполнен!`); // вывести ошибку в консоль
       })
       .finally(() => {
@@ -361,7 +358,11 @@ function App() {
           onMovies();
           setLoggedIn(true);
         })
-        .catch((error) => console.log(`${error}. Запрос не выполнен!`)) // вывести ошибку в консоль
+        .catch((error) => {
+          // обработать ошибки
+          setIsRequestErrorMessage(error);
+          console.log(`${error}. Запрос не выполнен!`); // вывести ошибку в консоль
+        })
         .finally(() => {
           setIsRenderLoading(false);
         });
@@ -525,6 +526,7 @@ function App() {
                 onMovies={onMovies}
                 onSavedMovies={onSavedMovies}
                 onMenuClick={handleMenuButtonClick}
+                onProfile={onProfile}
                 isMenuOpen={isMenuOpen}
                 isOpenMovies={isSearchFormOpenMovies}
                 isOpenSavedMovies={isSearchFormOpenSavedMovies}
@@ -560,6 +562,7 @@ function App() {
                 onMovies={onMovies}
                 onSavedMovies={onSavedMovies}
                 onMenuClick={handleMenuButtonClick}
+                onProfile={onProfile}
                 isMenuOpen={isMenuOpen}
                 isOpenMovies={isSearchFormOpenMovies}
                 isOpenSavedMovies={isSearchFormOpenSavedMovies}
@@ -598,6 +601,8 @@ function App() {
                 onSavedMovies={onSavedMovies}
                 onClickEditButton={handleEditButtonClick}
                 onClickExitButton={handleExitButtonClick}
+                isErrorMessage={isRequestErrorMessage}
+                isSuccessMessage={isRequestSuccessMessage}
               />
             }
           />
@@ -609,7 +614,7 @@ function App() {
                 onLogin={onLogin}
                 userRegister={userRegister}
                 setUserRegister={setUserRegister}
-                isRequestErrorMessager={isRequestErrorMessage}
+                isErrorMessage={isRequestErrorMessage}
                 onClick={handleSignUpSubmit}
               />
             }
@@ -619,9 +624,8 @@ function App() {
             path="/sign-in"
             element={
               <Login
-                onMovies={onMovies}
                 onRegister={onRegister}
-                isRequestErrorMessage={isRequestErrorMessage}
+                isErrorMessage={isRequestErrorMessage}
                 onClick={handleSignInSubmit}
               />
             }

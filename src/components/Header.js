@@ -2,7 +2,12 @@
 import { Link } from "react-router-dom";
 import headerLogo from "../images/logo.svg";
 
-export default function Header({ onMovies, onSavedMovies, onMenuClick }) {
+export default function Header({
+  onMovies,
+  onSavedMovies,
+  onMenuClick,
+  onProfile,
+}) {
   return (
     <header className="header">
       <Link className="header__logo-link link" to="/">
@@ -35,12 +40,20 @@ export default function Header({ onMovies, onSavedMovies, onMenuClick }) {
         </ul>
         <ul className="header__profile-links list">
           <li>
-            <Link className="header__profile-link link" to="/profile">
+            <Link
+              className="header__profile-link link"
+              onClick={onProfile}
+              to="/profile"
+            >
               Аккаунт
             </Link>
           </li>
           <li>
-            <Link className="header__profile-link link" to="/profile">
+            <Link
+              className="header__profile-link link"
+              onClick={onProfile}
+              to="/profile"
+            >
               <button
                 type="button"
                 name="edit-button"
