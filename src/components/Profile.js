@@ -38,6 +38,10 @@ export default function Profile({
   // наличие текста ошибки для каждого из полей
   const conditionForClassListText = conditionForClassList(errorsInputText);
   const conditionForClassListEmail = conditionForClassList(errorsInputEmail);
+  const conditionDisabled =
+    inputText === undefined ||
+    inputEmail === undefined ||
+    (inputText === currentUser.name && inputEmail === currentUser.email);
   // обработка клика по кнопке
   const handleClick = (e) => {
     e.preventDefault();
@@ -88,6 +92,7 @@ export default function Profile({
                 maxLength="40"
                 value={inputText || ""}
                 onChange={handleChange}
+                placeholder={currentUser.name}
                 required
               />
               <span
@@ -114,6 +119,7 @@ export default function Profile({
                 value={inputEmail || ""}
                 onChange={handleChange}
                 autoComplete="off"
+                placeholder={currentUser.email}
                 required
               />
               <span
@@ -139,11 +145,13 @@ export default function Profile({
               aria-label='Кнопка "Редактировать"'
               className="profile__edit-button button indicator"
               onClick={handleClick}
-              disabled={isValid ? false : true}
+              disabled={!conditionDisabled && isValid ? false : true}
             >
               <Link
                 className={`profile__edit-link link ${
-                  isValid ? "indicator" : "indicator_disabled"
+                  !conditionDisabled && isValid
+                    ? "indicator"
+                    : "indicator_disabled"
                 }`}
               >
                 Редактировать

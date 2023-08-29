@@ -186,7 +186,7 @@ function App() {
       .then((info) => {
         setIsRequestSuccessMessage("Данные профиля усешно сохранены!");
         const { _id, email, name } = info;
-        // // обновление стейт-переменной
+        // обновление данных о пользователе
         setCurrentUser({
           id: _id,
           email: email,
@@ -318,6 +318,7 @@ function App() {
             setUserRegister(true);
             // перенаправить на страницу /movies
             onMovies();
+            // обновление данных о пользователе
             setCurrentUser({
               email: inputEmail,
               name: inputText,
@@ -357,6 +358,11 @@ function App() {
           // перенаправить на страницу /movies
           onMovies();
           setLoggedIn(true);
+          // обновление данных о пользователе
+          setCurrentUser({
+            email: inputEmail,
+            isGetData: true,
+          });
         })
         .catch((error) => {
           // обработать ошибки
@@ -439,7 +445,7 @@ function App() {
       // добавить данные запроса из localStorage
       addDataLocalStorage();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSearchFormOpenMovies]);
   // загрузить данные с сервера при монтировании SavedMovies
   useEffect(() => {
@@ -447,7 +453,7 @@ function App() {
       // загрузить карточки сохраненных фильмов с личного сервера
       addSavedMovies();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSearchFormOpenSavedMovies, isShortSavedMovie]);
   // загрузить отсортированные сохраненные данные
   useEffect(() => {
@@ -469,7 +475,7 @@ function App() {
         .getProfileInfo()
         .then((info) => {
           const { _id, email, name } = info;
-          // // обновление стейт-переменной
+          // обновление данных о пользователе
           setCurrentUser({
             id: _id,
             email: email,
@@ -507,7 +513,7 @@ function App() {
       // добавить данные запроса из localStorage
       addDataLocalStorage();
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputSearchMovie, isShortMovie]);
   useEffect(() => {
     window.addEventListener("resize", updateWidthScreen);
