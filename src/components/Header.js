@@ -7,18 +7,26 @@ export default function Header({
   onSavedMovies,
   onMenuClick,
   onProfile,
+  type,
 }) {
+  const loggedIn = type === "main";
   return (
-    <header className="header">
+    <header className={`header ${loggedIn && "header_loggedIn"}`}>
       <Link className="header__logo-link link" to="/">
-        <img
-          className="header__logo"
-          src={headerLogo}
-          alt='Логотип сервиса &quot;Фильмы&quot;'
-        />
+        {type !== "main" && (
+          <img
+            className="header__logo"
+            src={headerLogo}
+            alt='Логотип сервиса "Фильмы"'
+          />
+        )}
       </Link>
       <nav className="header__navigation">
-        <ul className="header__movies-links list">
+        <ul
+          className={`header__movies-links list ${
+            loggedIn && "header__movies-links_loggedIn"
+          }`}
+        >
           <li>
             <Link
               className="header__movies-link link header__movies-link_active"
@@ -38,7 +46,12 @@ export default function Header({
             </Link>
           </li>
         </ul>
-        <ul className="header__profile-links list">
+
+        <ul
+          className={`header__profile-links list ${
+            loggedIn && "header__profile-links_loggedIn"
+          }`}
+        >
           <li>
             <Link
               className="header__profile-link link"
@@ -57,7 +70,7 @@ export default function Header({
               <button
                 type="button"
                 name="edit-button"
-                aria-label='Кнопка &quot;Редактировать&quot;'
+                aria-label='Кнопка "Редактировать"'
                 className="header__profile-edit-button indicator"
               ></button>
             </Link>
@@ -66,7 +79,7 @@ export default function Header({
         <button
           type="button"
           name="menu-button"
-          aria-label='Кнопка &quot;Меню&quot;'
+          aria-label='Кнопка "Меню"'
           className="header__profile-menu-button indicator"
           onClick={onMenuClick}
         />

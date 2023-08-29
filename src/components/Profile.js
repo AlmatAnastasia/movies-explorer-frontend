@@ -20,7 +20,9 @@ export default function Profile({
   onClickExitButton,
   isErrorMessage,
   isSuccessMessage,
+  onProfile,
 }) {
+  const type = "profile";
   const textMessage = isSuccessMessage ? isSuccessMessage : isErrorMessage;
   // данные текущего пользователя
   const currentUser = useContext(CurrentUserContext);
@@ -52,7 +54,13 @@ export default function Profile({
   }, [setValues, resetForm]);
   return (
     <>
-      <Header onMenuClick={onMenuClick} />
+      <Header
+        onMovies={onMovies}
+        onSavedMovies={onSavedMovies}
+        onMenuClick={onMenuClick}
+        onProfile={onProfile}
+        type={type}
+      />
       <Navigation
         isMenuOpen={isMenuOpen}
         onMenuClick={onMenuClick}

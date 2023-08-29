@@ -1,6 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 // App — корневой компонент приложения
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import Main from "./Main";
 import Movies from "./Movies";
@@ -207,6 +206,7 @@ function App() {
   // выход из аккаунта
   const handleExitButtonClick = () => {
     setCurrentUser({});
+    setLoggedIn(false);
     localStorage.removeItem("jwt");
     localStorage.removeItem("userEmail");
     localStorage.removeItem("userPassword");
@@ -395,6 +395,21 @@ function App() {
       setIsWidth(window.innerWidth);
     }, 3000);
   };
+  // проверка наличия токена и его валидности
+  const handleTokenCheck = useCallback(() => {
+    /* проверить, существует ли токен в хранилище браузера*/
+    // присвоить токен переменной jwt
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      checkToken()
+        .then((res) => {
+          if (res) {
+            setLoggedIn(true);
+          }
+        })
+        .catch((error) => console.log(`${error}. Запрос не выполнен!`)); // вывести ошибку в консоль
+    }
+  }, []);
   // поиск короткометражек
   useEffect(() => {
     const saveMovies = JSON.parse(localStorage.getItem("movies"));
@@ -424,6 +439,7 @@ function App() {
       // добавить данные запроса из localStorage
       addDataLocalStorage();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSearchFormOpenMovies]);
   // загрузить данные с сервера при монтировании SavedMovies
   useEffect(() => {
@@ -431,6 +447,7 @@ function App() {
       // загрузить карточки сохраненных фильмов с личного сервера
       addSavedMovies();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSearchFormOpenSavedMovies, isShortSavedMovie]);
   // загрузить отсортированные сохраненные данные
   useEffect(() => {
@@ -490,6 +507,7 @@ function App() {
       // добавить данные запроса из localStorage
       addDataLocalStorage();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputSearchMovie, isShortMovie]);
   useEffect(() => {
     window.addEventListener("resize", updateWidthScreen);
@@ -506,6 +524,11 @@ function App() {
       setIsMovieCounter({ finalValue: 5, step: 2 });
     }
   }, [isWidth]);
+  // эффект при монтировании
+  useEffect(() => {
+    // проверка наличия токена и его валидности
+    handleTokenCheck();
+  }, [handleTokenCheck]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -514,9 +537,17 @@ function App() {
           {/* страница «О проекте» */}
           <Route
             path="/"
-            element={<Main />}
-            onRegister={onRegister}
-            onLogin={onLogin}
+            element={
+              <Main
+                onRegister={onRegister}
+                onLogin={onLogin}
+                onMovies={onMovies}
+                onSavedMovies={onSavedMovies}
+                onMenuClick={handleMenuButtonClick}
+                onProfile={onProfile}
+                islogged={loggedIn}
+              />
+            }
           />
           {/* страница «Фильмы» */}
           <Route
@@ -603,6 +634,7 @@ function App() {
                 onClickExitButton={handleExitButtonClick}
                 isErrorMessage={isRequestErrorMessage}
                 isSuccessMessage={isRequestSuccessMessage}
+                onProfile={onProfile}
               />
             }
           />

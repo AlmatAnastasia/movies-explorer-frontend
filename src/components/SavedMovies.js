@@ -47,6 +47,7 @@ export default function SavedMovies({
         onSavedMovies={onSavedMovies}
         onMenuClick={onMenuClick}
         onProfile={onProfile}
+        type={type}
       />
       <Navigation
         isMenuOpen={isMenuOpen}
