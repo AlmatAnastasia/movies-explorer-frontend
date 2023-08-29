@@ -49,11 +49,13 @@ export default function Register({
   return (
     <section className="register center">
       <div className="register__container-header container-header">
-        <img
-          className="register__logo logo"
-          src={registerLogo}
-          alt='Логотип сервиса "Фильмы"'
-        />
+        <Link className="register__logo-link link" to="/">
+          <img
+            className="register__logo logo"
+            src={registerLogo}
+            alt='Логотип сервиса &quot;Фильмы&quot;'
+          />
+        </Link>
         <h1 className="register__title title title-center">
           Добро пожаловать!
         </h1>
@@ -144,7 +146,7 @@ export default function Register({
         <button
           type="button"
           name="login-button"
-          aria-label='Кнопка "Зарегистрироваться"'
+          aria-label='Кнопка &quot;Зарегистрироваться&quot;'
           className={`register__login-button blue-button ${
             isValid ? "indicator" : "blue-button_disabled indicator_disabled"
           }`}
@@ -166,7 +168,7 @@ export default function Register({
           <button
             type="button"
             name="entry-button"
-            aria-label='Кнопка "Войти"'
+            aria-label='Кнопка &quot;Войти&quot;'
             className="register__entry-button button indicator"
             onClick={onLogin}
           >

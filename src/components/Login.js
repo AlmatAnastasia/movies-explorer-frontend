@@ -36,11 +36,13 @@ export default function Login({
   return (
     <section className="login center">
       <div className="login__container-header container-header">
-        <img
-          className="login__logo logo"
-          src={loginLogo}
-          alt='Логотип сервиса "Фильмы"'
-        />
+        <Link className="login__logo-link link" to="/">
+          <img
+            className="login__logo logo"
+            src={loginLogo}
+            alt='Логотип сервиса &quot;Фильмы&quot;'
+          />
+        </Link>
         <h1 className="login__title title title-center">Рады видеть!</h1>
       </div>
 
@@ -105,7 +107,7 @@ export default function Login({
         <button
           type="button"
           name="entry-button"
-          aria-label='Кнопка "Войти"'
+          aria-label='Кнопка &quot;Войти&quot;'
           className={`login__entry-button blue-button ${
             isValid ? "indicator" : "blue-button_disabled indicator_disabled"
           }`}
@@ -127,7 +129,7 @@ export default function Login({
           <button
             type="button"
             name="register-button"
-            aria-label='Кнопка "Регистрация"'
+            aria-label='Кнопка &quot;Регистрация&quot;'
             className="login__register-button button indicator"
             onClick={onRegister}
           >
