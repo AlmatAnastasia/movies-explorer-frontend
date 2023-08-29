@@ -13,12 +13,11 @@ const checkForErrors = (res) => {
 
 const returnHeadersData = () => {
   // вернуть данные для заголовка
-  // вернуть данные для заголовка
   const token = localStorage.getItem("jwt"); // личный токен
   return {
-    Accept: "application/json",
+    Accept: headers["Content-Type"],
     "Content-Type": headers["Content-Type"],
-    Authorization: `Bearer ${token}`,
+    authorization: token,
   };
 };
 
@@ -59,13 +58,8 @@ export const authorize = (email, password) => {
 // Коды ошибок:
 // 400 — Токен не передан или передан не в том формате
 export const checkToken = () => {
-  const token = localStorage.getItem("jwt"); // личный токен
   return request(`${baseUrl}/users/me`, {
     method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
+    headers: returnHeadersData(),
   });
 };

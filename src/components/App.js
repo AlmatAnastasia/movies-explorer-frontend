@@ -351,14 +351,15 @@ function App() {
           if (status === 200) {
             // сохранить токен в localStorage
             localStorage.setItem("jwt", res.token);
-            // перенаправить на страницу /movies
-            onMovies();
-            setLoggedIn(true);
           }
         })
+        // проверка наличия токена и его валидности
         .then(() => checkToken())
         .then((res) => {
           localStorage.setItem("userEmail", res.email);
+          // перенаправить на страницу /movies
+          onMovies();
+          setLoggedIn(true);
         })
         .catch((error) => console.log(`${error}. Запрос не выполнен!`)) // вывести ошибку в консоль
         .finally(() => {

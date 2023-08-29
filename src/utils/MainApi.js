@@ -11,8 +11,6 @@ class Api {
     this._type = headers["Content-Type"]; // 'Content-Type'
     this._moviesURL = `${baseUrl}/movies`;
     this._personalURL = `${baseUrl}/users/me`;
-    // this._cardsURL = `${baseUrl}/cards`;
-    // this._personalID = null;
   }
 
   // приватные методы
@@ -32,6 +30,8 @@ class Api {
     const token = localStorage.getItem("jwt"); // личный токен
     return {
       headers: {
+        Accept: this._type,
+        "Content-Type": this._type,
         authorization: token,
       },
     };
@@ -43,6 +43,8 @@ class Api {
     return {
       method: "DELETE",
       headers: {
+        Accept: this._type,
+        "Content-Type": this._type,
         authorization: token,
       },
     };
@@ -52,8 +54,9 @@ class Api {
     // вернуть данные для заголовка
     const token = localStorage.getItem("jwt"); // личный токен
     return {
-      authorization: token,
+      Accept: this._type,
       "Content-Type": this._type,
+      authorization: token,
     };
   }
 

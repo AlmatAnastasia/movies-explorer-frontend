@@ -24,10 +24,9 @@ class MoviesApi {
 
   _returnHeadersGET() {
     // вернуть данные для заголовка GET-запроса
-    const token = localStorage.getItem("jwt"); // личный токен
     return {
       headers: {
-        authorization: token,
+        "Content-Type": this._type,
       },
     };
   }
