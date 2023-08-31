@@ -8,6 +8,7 @@ import Profile from "./Profile";
 import Register from "./Register";
 import Login from "./Login";
 import NotFoundPage from "./NotFoundPage";
+import ProtectedRouteElement from "./ProtectedRouteElement";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 import { register, authorize, checkToken } from "../utils/apiAuth.js";
 import moviesApi from "../utils/MoviesApi.js";
@@ -559,7 +560,9 @@ function App() {
           <Route
             path="/movies"
             element={
-              <Movies
+              <ProtectedRouteElement
+                islogged={loggedIn}
+                element={Movies}
                 onMovies={onMovies}
                 onSavedMovies={onSavedMovies}
                 onMenuClick={handleMenuButtonClick}
@@ -595,7 +598,9 @@ function App() {
           <Route
             path="/saved-movies"
             element={
-              <SavedMovies
+              <ProtectedRouteElement
+                islogged={loggedIn}
+                element={SavedMovies}
                 onMovies={onMovies}
                 onSavedMovies={onSavedMovies}
                 onMenuClick={handleMenuButtonClick}
@@ -631,7 +636,9 @@ function App() {
           <Route
             path="/profile"
             element={
-              <Profile
+              <ProtectedRouteElement
+                islogged={loggedIn}
+                element={Profile}
                 isMenuOpen={isMenuOpen}
                 onMenuClick={handleMenuButtonClick}
                 onMovies={onMovies}
