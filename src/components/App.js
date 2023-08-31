@@ -36,7 +36,6 @@ function App() {
   const [isRequestSuccessMessage, setIsRequestSuccessMessage] = useState("");
   const [inputSearchMovie, setInputSearchMovie] = useState("");
   const [inputSearchSavedMovie, setInputSearchSavedMovie] = useState("");
-  const [isSearchList, setIsSearchList] = useState(false);
   const [isSearchFormSubmit, setIsSearchFormSubmit] = useState(false);
   const [isSearchFormValid, setIsSearchFormValid] = useState(false);
   const [isWidth, setIsWidth] = useState(window.innerWidth);
@@ -103,10 +102,6 @@ function App() {
   };
   const handleSearchCheckboxSavedMovieClick = () => {
     setIsShortSavedMovie(!isShortSavedMovie);
-  };
-  // выбор варианта из выпадающего списка
-  const handleSearchListClick = () => {
-    setIsSearchList(!isSearchList);
   };
   // изменить статус поля формы поиска
   const changeSearchFormStatus = () => {
@@ -590,8 +585,6 @@ function App() {
                 onCheckboxChange={handleSearchCheckboxMovieClick}
                 isRenderLoading={isRenderLoading}
                 movies={movies}
-                onSearchListClick={handleSearchListClick}
-                isSearchList={isSearchList}
                 setSearchFormValid={setIsSearchFormValid}
                 isSearchForm={isSearchFormSubmit}
                 onSaveButtonClick={handleSaveButtonClick}
@@ -628,8 +621,6 @@ function App() {
                 onCheckboxChange={handleSearchCheckboxSavedMovieClick}
                 isRenderLoading={isRenderLoading}
                 movies={sortSavedMovies}
-                onSearchListClick={handleSearchListClick}
-                isSearchList={isSearchList}
                 setSearchFormValid={setIsSearchFormValid}
                 isSearchForm={isSearchFormSubmit}
                 onSaveButtonClick={handleSaveButtonClick}

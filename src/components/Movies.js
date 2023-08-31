@@ -26,8 +26,6 @@ export default function Movies({
   onCheckboxChange,
   isRenderLoading,
   movies,
-  onSearchListClick,
-  isSearchList,
   setSearchFormValid,
   isSearchForm,
   onSaveButtonClick,
@@ -69,9 +67,6 @@ export default function Movies({
         inputSearchValue={inputSearchValue}
         isShortMovie={isShortMovie}
         onCheckboxChange={onCheckboxChange}
-        movies={movies}
-        onSearchListClick={onSearchListClick}
-        isSearchList={isSearchList}
         setSearchFormValid={setSearchFormValid}
       />
       {!isRenderLoading && inputSearchValue && (
