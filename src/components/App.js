@@ -137,10 +137,6 @@ function App() {
       isShortMovie === null ? false : isShortMovie
     );
   };
-  // очистить локальное хранилище (localStorage)
-  // localStorage.removeItem("searchText");
-  // localStorage.removeItem("shortMovieStatus");
-  // localStorage.removeItem("movies");
 
   // проверка результата запроса на ошибки
   const checkRequestForErrors = (res) => {
@@ -211,6 +207,12 @@ function App() {
     localStorage.removeItem("jwt");
     localStorage.removeItem("userEmail");
     localStorage.removeItem("userPassword");
+    // очистить локальное хранилище (localStorage)
+    setMovies([]);
+    setIsShortMovie(false);
+    localStorage.removeItem("searchText");
+    localStorage.removeItem("shortMovieStatus");
+    localStorage.removeItem("movies");
     // переадресовать пользователя на страницу /
     navigate("/", { replace: true });
   };
@@ -259,6 +261,8 @@ function App() {
           : (movie.status = "isSaved");
       });
       setMovies(findMovies);
+      localStorage.removeItem("movies");
+      localStorage.setItem("movies", JSON.stringify(findMovies));
       addFindMessage(findMovies);
     });
   };
@@ -421,22 +425,25 @@ function App() {
   useEffect(() => {
     const saveMovies = JSON.parse(localStorage.getItem("movies"));
     const allMovies = saveMovies ? saveMovies : movies;
+    const conditionEqual =
+      isSaveData.searchText === inputSearchMovie &&
+      stringToBoolean(isSaveData.shortMovieStatus) === isShortMovie;
     if (isShortMovie) {
       const shortMovies = allMovies.filter((movie) => {
         return movie.duration <= 40;
       });
       setMovies(shortMovies);
-      const conditionEqual =
-        isSaveData.searchText === inputSearchMovie &&
-        stringToBoolean(isSaveData.shortMovieStatus) === isShortMovie;
       // сохранить данные запроса в localStorage
       // сохранить найденные фильмы и состояние переключателя короткометражек
-      if (isSearchFormSubmit && !conditionEqual) {
+      if (!conditionEqual) {
         localStorage.removeItem("movies");
         localStorage.setItem("movies", JSON.stringify(shortMovies));
         localStorage.setItem("shortMovieStatus", isShortMovie);
       }
     }
+    localStorage.removeItem("movies");
+    localStorage.setItem("movies", JSON.stringify(allMovies));
+    localStorage.setItem("shortMovieStatus", isShortMovie);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isShortMovie, isRenderLoading]);
   // извлечь данные запроса из localStorage при монтировании Movies
@@ -498,21 +505,20 @@ function App() {
       stringToBoolean(isSaveData.shortMovieStatus) === isShortMovie;
     const setData = isSaveData.shortMovieStatus !== null;
     if (!setData && inputSearchMovie) {
+      // запрос фильмов
       requestMovies();
+      localStorage.setItem("searchText", inputSearchMovie);
     }
     if (setData) {
-      const conditionEqual =
-        isSaveData.searchText === inputSearchMovie &&
-        stringToBoolean(isSaveData.shortMovieStatus) === isShortMovie;
-      const conditionSearch = inputSearchMovie.length > 1 && !conditionEqual;
+      const conditionSearch =
+        inputSearchMovie === null
+          ? false
+          : inputSearchMovie.length > 1 && !conditionEqual;
       if (conditionSearch) {
         // запрос фильмов
         requestMovies();
+        localStorage.setItem("searchText", inputSearchMovie);
       }
-    }
-    if (conditionEqual && isSearchFormOpenMovies === true) {
-      // добавить данные запроса из localStorage
-      addDataLocalStorage();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputSearchMovie, isShortMovie]);
