@@ -1,5 +1,5 @@
 // Register — компонент страницы регистрации
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import registerLogo from "../images/logo.svg";
 import { useFormAndValidation } from "../hooks/useFormAndValidation";
@@ -17,6 +17,8 @@ export default function Register({
   isErrorMessage,
   onClick,
 }) {
+  const isEmail = require("validator/lib/isEmail");
+  const [isValidEmail, setIsValidEmail] = useState(false);
   const inputRegisterTextSelector = `register__${inputTextSelector}`;
   const inputRegisterEmailSelector = `register__${inputEmailSelector}`;
   const inputRegisterPasswordSelector = `register__${inputPasswordSelector}`;
@@ -33,7 +35,10 @@ export default function Register({
     ? localStorage.userPassword
     : values[inputRegisterPasswordSelector];
   const errorsInputText = errors[inputRegisterTextSelector];
-  const errorsInputEmail = errors[inputRegisterEmailSelector];
+  const errorsInputEmail =
+    isValidEmail !== isValid && inputEmail !== undefined
+      ? "Должен быть действительный адрес электронной почты"
+      : errors[inputRegisterEmailSelector];
   const errorsInputPassword = errors[inputRegisterPasswordSelector];
   // наличие текста ошибки для каждого из полей
   const conditionForClassListText = conditionForClassList(errorsInputText);
@@ -46,6 +51,14 @@ export default function Register({
     setValues({});
     setUserRegister(false);
   }, [setValues, setUserRegister, resetForm]);
+  // валидация email при изменении значения
+  useEffect(() => {
+    const email = inputEmail === undefined ? "" : inputEmail;
+    const validEmail = isEmail(email);
+    setIsValidEmail(validEmail);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inputEmail]);
+
   return (
     <section className="register center">
       <div className="register__container-header container-header">
@@ -148,14 +161,16 @@ export default function Register({
           name="login-button"
           aria-label='Кнопка "Зарегистрироваться"'
           className={`register__login-button blue-button ${
-            isValid ? "indicator" : "blue-button_disabled indicator_disabled"
+            isValid && isValidEmail
+              ? "indicator"
+              : "blue-button_disabled indicator_disabled"
           }`}
           onClick={onClick(inputText, inputEmail, inputPassword)}
-          disabled={isValid ? false : true}
+          disabled={isValid && isValidEmail ? false : true}
         >
           <Link
             className={`register__login-link button-link link ${
-              isValid ? "indicator" : "indicator_disabled"
+              isValid && isValidEmail ? "indicator" : "indicator_disabled"
             }`}
           >
             Зарегистрироваться

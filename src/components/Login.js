@@ -1,5 +1,5 @@
 // Login — компонент страницы авторизации
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import loginLogo from "../images/logo.svg";
 import { useFormAndValidation } from "../hooks/useFormAndValidation";
@@ -10,6 +10,8 @@ import {
 } from "../utils/utils.js";
 
 export default function Login({ onRegister, isErrorMessage, onClick }) {
+  const isEmail = require("validator/lib/isEmail");
+  const [isValidEmail, setIsValidEmail] = useState(false);
   const inputLoginEmailSelector = `login__${inputEmailSelector}`;
   const inputLoginPasswordSelector = `login__${inputPasswordSelector}`;
   // валидация
@@ -17,7 +19,10 @@ export default function Login({ onRegister, isErrorMessage, onClick }) {
     useFormAndValidation();
   const inputEmail = values[inputLoginEmailSelector];
   const inputPassword = values[inputLoginPasswordSelector];
-  const errorsInputEmail = errors[inputLoginEmailSelector];
+  const errorsInputEmail =
+    isValidEmail !== isValid && inputEmail !== undefined
+      ? "Должен быть действительный адрес электронной почты"
+      : errors[inputLoginEmailSelector];
   const errorsInputPassword = errors[inputLoginPasswordSelector];
   // наличие текста ошибки для каждого из полей
   const conditionForClassListEmail = conditionForClassList(errorsInputEmail);
@@ -28,6 +33,13 @@ export default function Login({ onRegister, isErrorMessage, onClick }) {
     resetForm();
     setValues({});
   }, [setValues, resetForm]);
+  // валидация email при изменении значения
+  useEffect(() => {
+    const email = inputEmail === undefined ? "" : inputEmail;
+    const validEmail = isEmail(email);
+    setIsValidEmail(validEmail);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inputEmail]);
   return (
     <section className="login center">
       <div className="login__container-header container-header">
@@ -102,14 +114,16 @@ export default function Login({ onRegister, isErrorMessage, onClick }) {
           name="entry-button"
           aria-label='Кнопка "Войти"'
           className={`login__entry-button blue-button ${
-            isValid ? "indicator" : "blue-button_disabled indicator_disabled"
+            isValid && isValidEmail
+              ? "indicator"
+              : "blue-button_disabled indicator_disabled"
           }`}
           onClick={onClick(inputEmail, inputPassword)}
-          disabled={isValid ? false : true}
+          disabled={isValid && isValidEmail ? false : true}
         >
           <Link
             className={`login__login-link button-link link ${
-              isValid ? "indicator" : "indicator_disabled"
+              isValid && isValidEmail ? "indicator" : "indicator_disabled"
             }`}
           >
             Войти

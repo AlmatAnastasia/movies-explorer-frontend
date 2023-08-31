@@ -1,5 +1,5 @@
 // Profile — компонент страницы изменения профиля
-import { useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import Header from "./Header";
 import Navigation from "./Navigation";
 import { Link } from "react-router-dom";
@@ -23,6 +23,8 @@ export default function Profile({
   onProfile,
 }) {
   const type = "profile";
+  const isEmail = require("validator/lib/isEmail");
+  const [isValidEmail, setIsValidEmail] = useState(false);
   const textMessage = isSuccessMessage ? isSuccessMessage : isErrorMessage;
   // данные текущего пользователя
   const currentUser = useContext(CurrentUserContext);
@@ -34,7 +36,10 @@ export default function Profile({
   const inputText = values[inputProfileTextSelector];
   const inputEmail = values[inputProfileEmailSelector];
   const errorsInputText = errors[inputProfileTextSelector];
-  const errorsInputEmail = errors[inputProfileEmailSelector];
+  const errorsInputEmail =
+    isValidEmail !== isValid && inputEmail !== undefined
+      ? "Должен быть действительный адрес электронной почты"
+      : errors[inputProfileEmailSelector];
   // наличие текста ошибки для каждого из полей
   const conditionForClassListText = conditionForClassList(errorsInputText);
   const conditionForClassListEmail = conditionForClassList(errorsInputEmail);
@@ -56,6 +61,13 @@ export default function Profile({
     resetForm();
     setValues({});
   }, [setValues, resetForm]);
+  // валидация email при изменении значения
+  useEffect(() => {
+    const email = inputEmail === undefined ? "" : inputEmail;
+    const validEmail = isEmail(email);
+    setIsValidEmail(validEmail);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inputEmail]);
   return (
     <>
       <Header
@@ -145,11 +157,13 @@ export default function Profile({
               aria-label='Кнопка "Редактировать"'
               className="profile__edit-button button indicator"
               onClick={handleClick}
-              disabled={!conditionDisabled && isValid ? false : true}
+              disabled={
+                !conditionDisabled && isValid && isValidEmail ? false : true
+              }
             >
               <Link
                 className={`profile__edit-link link ${
-                  !conditionDisabled && isValid
+                  !conditionDisabled && isValid && isValidEmail
                     ? "indicator"
                     : "indicator_disabled"
                 }`}
