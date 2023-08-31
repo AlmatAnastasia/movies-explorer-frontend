@@ -8,7 +8,9 @@ export default function MoviesCard({ type, movie, onSaveButtonClick }) {
     `movie__save-button ${
       movie.status === "isSaved" && "movie__save-button_active indicator"
     } ${movie.status === "isComplited" && "movie__save-button_completed"} ${
-      movie.status === "isDelete" && "movie__save-button_delete indicator"
+      savedMovies &&
+      movie.statusDelete === "isDelete" &&
+      "movie__save-button_delete indicator"
     }`;
   const movieImageLink = savedMovies
     ? movie.image

@@ -150,6 +150,8 @@ function App() {
     api
       .addMovie(movie)
       .then((newMovie) => {
+        movie.status = "isComplited";
+        newMovie.statusDelete = "isDelete";
         // расширенная копия текущего массива savedMovies
         setSavedMovies([newMovie, ...savedMovies]);
       })
@@ -380,7 +382,7 @@ function App() {
     api
       .getInitialCards()
       .then((allSavedMovies) => {
-        allSavedMovies.map((movie) => (movie.status = "isDelete"));
+        allSavedMovies.map((movie) => (movie.statusDelete = "isDelete"));
         let resultMovies = allSavedMovies;
         // поиск короткометражек
         if (isShortSavedMovie) {
@@ -451,14 +453,12 @@ function App() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSearchFormOpenMovies]);
-  // загрузить данные с сервера при монтировании SavedMovies
+  // загрузить данные с сервера при монтировании
   useEffect(() => {
-    if (isSearchFormOpenSavedMovies === true) {
-      // загрузить карточки сохраненных фильмов с личного сервера
-      addSavedMovies();
-    }
+    // загрузить карточки сохраненных фильмов с личного сервера
+    addSavedMovies();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSearchFormOpenSavedMovies, isShortSavedMovie]);
+  }, []);
   // загрузить отсортированные сохраненные данные
   useEffect(() => {
     const sort = [];
