@@ -20,7 +20,7 @@ export default function Login({ onRegister, isErrorMessage, onClick }) {
   const inputEmail = values[inputLoginEmailSelector];
   const inputPassword = values[inputLoginPasswordSelector];
   const errorsInputEmail =
-    isValidEmail !== isValid && inputEmail !== undefined
+    !isValidEmail && inputEmail !== undefined
       ? "Должен быть действительный адрес электронной почты"
       : errors[inputLoginEmailSelector];
   const errorsInputPassword = errors[inputLoginPasswordSelector];

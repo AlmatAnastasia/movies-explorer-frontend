@@ -36,7 +36,7 @@ export default function Register({
     : values[inputRegisterPasswordSelector];
   const errorsInputText = errors[inputRegisterTextSelector];
   const errorsInputEmail =
-    isValidEmail !== isValid && inputEmail !== undefined
+    !isValidEmail && inputEmail !== undefined
       ? "Должен быть действительный адрес электронной почты"
       : errors[inputRegisterEmailSelector];
   const errorsInputPassword = errors[inputRegisterPasswordSelector];

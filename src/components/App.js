@@ -315,12 +315,13 @@ function App() {
       localStorage.setItem("userPassword", inputPassword);
       localStorage.setItem("userEmail", inputEmail);
       setIsRenderLoading(true);
-      register(inputEmail, inputPassword)
+      register(inputText, inputEmail, inputPassword)
         .then((res) => {
           // проверка результата запроса на ошибки
           const status = checkRequestForErrors(res);
           if (status === 200) {
             setUserRegister(true);
+            setLoggedIn(true);
             // перенаправить на страницу /movies
             onMovies();
             // обновление данных о пользователе
@@ -360,9 +361,9 @@ function App() {
         .then(() => checkToken())
         .then((res) => {
           localStorage.setItem("userEmail", res.email);
+          setLoggedIn(true);
           // перенаправить на страницу /movies
           onMovies();
-          setLoggedIn(true);
           // обновление данных о пользователе
           setCurrentUser({
             email: inputEmail,

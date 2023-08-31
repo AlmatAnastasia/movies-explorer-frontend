@@ -37,7 +37,7 @@ export default function Profile({
   const inputEmail = values[inputProfileEmailSelector];
   const errorsInputText = errors[inputProfileTextSelector];
   const errorsInputEmail =
-    isValidEmail !== isValid && inputEmail !== undefined
+    !isValidEmail && inputEmail !== undefined
       ? "Должен быть действительный адрес электронной почты"
       : errors[inputProfileEmailSelector];
   // наличие текста ошибки для каждого из полей
@@ -59,8 +59,13 @@ export default function Profile({
   // изменение данных при монтировании (авторизация/регистрация)
   useEffect(() => {
     resetForm();
-    setValues({});
-  }, [setValues, resetForm]);
+    // добавление данных текущего пользователя
+    setValues({
+      [inputProfileTextSelector]: currentUser.name,
+      [inputProfileEmailSelector]: currentUser.email,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setValues, resetForm, currentUser]);
   // валидация email при изменении значения
   useEffect(() => {
     const email = inputEmail === undefined ? "" : inputEmail;
@@ -104,7 +109,6 @@ export default function Profile({
                 maxLength="40"
                 value={inputText || ""}
                 onChange={handleChange}
-                placeholder={currentUser.name}
                 required
               />
               <span
@@ -131,7 +135,6 @@ export default function Profile({
                 value={inputEmail || ""}
                 onChange={handleChange}
                 autoComplete="off"
-                placeholder={currentUser.email}
                 required
               />
               <span

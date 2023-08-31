@@ -28,11 +28,12 @@ const request = (url, options) => {
 
 // запрос для регистрации в сервисе
 // Коды ошибок: 400 - некорректно заполнено одно из полей
-export const register = (email, password) => {
+export const register = (name, email, password) => {
   return fetch(`${baseUrl}/signup`, {
     method: "POST",
     headers: returnHeadersData(),
     body: JSON.stringify({
+      name: name,
       password: password,
       email: email,
     }),
