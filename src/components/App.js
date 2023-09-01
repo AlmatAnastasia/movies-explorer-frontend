@@ -673,7 +673,7 @@ function App() {
           />
           {/* /sign-up — регистрация пользователя */}
           <Route
-            path="/sign-up"
+            path={loggedIn ? "/" : "/sign-up"}
             element={
               <Register
                 onLogin={onLogin}
@@ -686,7 +686,7 @@ function App() {
           />
           {/* /sign-in — авторизация пользователя */}
           <Route
-            path="/sign-in"
+            path={loggedIn ? "/" : "/sign-in"}
             element={
               <Login
                 onRegister={onRegister}
