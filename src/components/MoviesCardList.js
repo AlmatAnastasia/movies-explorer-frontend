@@ -15,13 +15,16 @@ export default function MoviesCardList({
   const searchText = localStorage.getItem("searchText");
   const isSearchText = searchText === null ? false : true;
   const isMovies = movies === null ? false : true;
+  const conditionCardListMovies =
+    ((isSearchForm && isSearchFormValid) || isSearchText) && isMovies;
+  const conditionCardList =
+    type === "savedMovies" ? isMovies : conditionCardListMovies;
   return (
     <>
       {isNotFound.status === true ? (
         <MoviesNotFound isNotFound={isNotFound} />
       ) : (
-        ((isSearchForm && isSearchFormValid) || isSearchText) &&
-        isMovies && (
+        conditionCardList && (
           <section className="movies">
             <ul className="movies__list list">
               {movies.slice(0, isMovieCounter.finalValue).map((movie) => (

@@ -409,6 +409,7 @@ function App() {
           resultMovies = shortMovies;
         }
         setSavedMovies(resultMovies);
+        setSortSavedMovies(resultMovies);
       })
       .catch((error) => {
         // обработать ошибки
