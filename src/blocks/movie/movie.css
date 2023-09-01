@@ -1,4 +1,16 @@
 .movie {
   position: relative;
-  width: 100%;
+  width: 360px;
+}
+
+@media screen and (max-width: 768px) {
+  .movie {
+    width: 339px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .movie {
+    width: 300px;
+  }
 }
