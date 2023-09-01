@@ -166,11 +166,28 @@ function App() {
       })
       .catch((error) => console.log(`${error}. Запрос не выполнен!`)); // вывести ошибку в консоль
   };
+  // удалить фильм и с сервера и из найденных фильмов
+  const handleDeleteSavedMovie = (movie) => {
+    // удалить фильм с сервера
+    let id = "";
+    savedMovies.forEach((savedMovie) => {
+      if (savedMovie.movieId === movie.id) {
+        id = savedMovie._id;
+      }
+    });
+    api
+      .deleteMovie(id)
+      .then(() => {
+        setSavedMovies((state) => state.filter((c) => c.movieId !== movie.id));
+        movie.status = "isSaved";
+      })
+      .catch((error) => console.log(`${error}. Запрос не выполнен!`)); // вывести ошибку в консоль
+  };
   // сохранение/удаление фильма
   const handleSaveButtonClick = (movie) => {
-    movie.status === "isSaved"
-      ? handleAddNewMovie(movie)
-      : handleDeleteMovie(movie);
+    if (movie.status === "isSaved") handleAddNewMovie(movie);
+    if (movie.status === "isComplited") handleDeleteSavedMovie(movie);
+    if (movie.statusDelete === "isDelete") handleDeleteMovie(movie);
   };
   // изменить собственную информацию (данные профиля) на личном сервере
   const handleEditButtonClick = ({ name, email }) => {
@@ -455,10 +472,15 @@ function App() {
   }, [isSearchFormOpenMovies]);
   // загрузить данные с сервера при монтировании
   useEffect(() => {
-    // загрузить карточки сохраненных фильмов с личного сервера
-    addSavedMovies();
+    if (
+      isSearchFormOpenMovies === true ||
+      isSearchFormOpenSavedMovies === true
+    ) {
+      // загрузить карточки сохраненных фильмов с личного сервера
+      addSavedMovies();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isSearchFormOpenMovies, isSearchFormOpenSavedMovies]);
   // загрузить отсортированные сохраненные данные
   useEffect(() => {
     const sort = [];

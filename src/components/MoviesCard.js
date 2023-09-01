@@ -50,7 +50,6 @@ export default function MoviesCard({ type, movie, onSaveButtonClick }) {
           aria-label='Кнопка "Сохранить"'
           className={movieSaveButtonClassName}
           onClick={handleButtonClick}
-          disabled={movie.status === "isComplited" ? true : false}
         >
           {movie.status === "isSaved" && "Сохранить"}
         </button>
