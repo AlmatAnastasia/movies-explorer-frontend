@@ -589,6 +589,7 @@ function App() {
                 onSavedMovies={onSavedMovies}
                 onMenuClick={handleMenuButtonClick}
                 onProfile={onProfile}
+                isMenuOpen={isMenuOpen}
                 islogged={loggedIn}
               />
             }

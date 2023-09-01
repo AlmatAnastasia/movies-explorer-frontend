@@ -1,6 +1,7 @@
 // Promo — компонент с вёрсткой баннера страницы «О проекте»
 import { Link } from "react-router-dom";
 import Header from "./Header";
+import Navigation from "./Navigation";
 import leadLogo from "../images/logo.svg";
 import leadLogoDiploma from "../images/lead-logo.svg";
 
@@ -11,6 +12,7 @@ export default function Promo({
   onSavedMovies,
   onMenuClick,
   onProfile,
+  isMenuOpen,
   islogged,
 }) {
   const type = "main";
@@ -23,13 +25,21 @@ export default function Promo({
           alt='Логотип сервиса "Фильмы"'
         />
         {islogged ? (
-          <Header
-            onMovies={onMovies}
-            onSavedMovies={onSavedMovies}
-            onMenuClick={onMenuClick}
-            onProfile={onProfile}
-            type={type}
-          />
+          <>
+            <Header
+              onMovies={onMovies}
+              onSavedMovies={onSavedMovies}
+              onMenuClick={onMenuClick}
+              onProfile={onProfile}
+              type={type}
+            />
+            <Navigation
+              isMenuOpen={isMenuOpen}
+              onMenuClick={onMenuClick}
+              onMovies={onMovies}
+              onSavedMovies={onSavedMovies}
+            />
+          </>
         ) : (
           <>
             <button

@@ -12,6 +12,7 @@ export default function Main({
   onSavedMovies,
   onMenuClick,
   onProfile,
+  isMenuOpen,
   islogged,
 }) {
   return (
@@ -24,6 +25,7 @@ export default function Main({
           onSavedMovies={onSavedMovies}
           onMenuClick={onMenuClick}
           onProfile={onProfile}
+          isMenuOpen={isMenuOpen}
           islogged={islogged}
         />
         <AboutProject />
