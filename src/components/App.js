@@ -481,6 +481,19 @@ function App() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSearchFormOpenMovies, isSearchFormOpenSavedMovies]);
+  // поиск короткометражек savedMovies
+  useEffect(() => {
+    let resultMovies = savedMovies;
+    // поиск короткометражек
+    if (isShortSavedMovie) {
+      const shortMovies = savedMovies.filter((movie) => {
+        return movie.duration <= 40;
+      });
+      resultMovies = shortMovies;
+    }
+    setSortSavedMovies(resultMovies);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isShortSavedMovie]);
   // загрузить отсортированные сохраненные данные
   useEffect(() => {
     const sort = [];
