@@ -11,15 +11,22 @@
   grid-row-gap: 43px;
 }
 
+@media screen and (max-width: 1281px) {
+  .movies__list {
+    justify-content: flex-start;
+  }
+}
+
 @media screen and (max-width: 1161px) {
   .movies__list {
-    max-width: calc(100% - 16px);
+    max-width: 750px;
   }
 }
 
 @media screen and (max-width: 782px) {
   .movies__list {
     max-width: 100%;
+    justify-content: center;
   }
 }
 
