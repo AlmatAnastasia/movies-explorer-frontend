@@ -223,10 +223,15 @@ function App() {
     localStorage.removeItem("userPassword");
     // очистить локальное хранилище (localStorage)
     setMovies([]);
+    setSavedMovies([]);
     setIsShortMovie(false);
+    setIsShortSavedMovie(false);
+    setInputSearchSavedMovie("");
+    setInputSearchMovie("");
     localStorage.removeItem("searchText");
     localStorage.removeItem("shortMovieStatus");
     localStorage.removeItem("movies");
+    setIsRequestErrorMessage("");
     // переадресовать пользователя на страницу /
     navigate("/", { replace: true });
   };
@@ -335,7 +340,6 @@ function App() {
           const status = checkRequestForErrors(res);
           if (status === 200) {
             setUserRegister(true);
-            setLoggedIn(true);
             // перенаправить на страницу /movies
             onMovies();
             // обновление данных о пользователе
@@ -344,6 +348,33 @@ function App() {
               name: inputText,
               isGetData: true,
             });
+            return (
+              authorize(inputEmail, inputPassword)
+                .then((res) => {
+                  // проверка результата запроса на ошибки
+                  const status = checkRequestForErrors(res);
+                  if (status === 200) {
+                    // сохранить токен в localStorage
+                    localStorage.setItem("jwt", res.token);
+                  }
+                })
+                // проверка наличия токена и его валидности
+                .then(() => checkToken())
+                .then((res) => {
+                  localStorage.setItem("userEmail", res.email);
+                  setLoggedIn(true);
+                  // перенаправить на страницу /movies
+                  onMovies();
+                  // обновление данных о пользователе
+                  setCurrentUser({
+                    email: inputEmail,
+                    isGetData: true,
+                  });
+                })
+                .catch((error) => {
+                  console.log(`${error}. Запрос не выполнен!`); // вывести ошибку в консоль
+                })
+            );
           }
         })
         .catch((error) => console.log(`${error}. Запрос не выполнен!`)) // вывести ошибку в консоль
@@ -474,14 +505,15 @@ function App() {
   // загрузить данные с сервера при монтировании
   useEffect(() => {
     if (
-      isSearchFormOpenMovies === true ||
-      isSearchFormOpenSavedMovies === true
+      (isSearchFormOpenMovies === true ||
+        isSearchFormOpenSavedMovies === true) &&
+      loggedIn
     ) {
       // загрузить карточки сохраненных фильмов с личного сервера
       addSavedMovies();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSearchFormOpenMovies, isSearchFormOpenSavedMovies]);
+  }, [isSearchFormOpenMovies, isSearchFormOpenSavedMovies, loggedIn]);
   // поиск короткометражек savedMovies
   useEffect(() => {
     let resultMovies = savedMovies;
@@ -499,7 +531,11 @@ function App() {
   useEffect(() => {
     const sort = [];
     savedMovies.forEach((movie) => {
-      if (movie.nameRU.toLowerCase().includes(inputSearchSavedMovie) === true) {
+      const conditionFindMovies =
+        movie.nameRU.toLowerCase().includes(inputSearchSavedMovie) === true ||
+        movie.nameEN.toLowerCase().includes(inputSearchSavedMovie) === true;
+      // совпадение по nameRU и nameEN
+      if (conditionFindMovies) {
         sort.push(movie);
       }
     });
