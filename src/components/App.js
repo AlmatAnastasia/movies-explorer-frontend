@@ -13,6 +13,13 @@ import CurrentUserContext from "../contexts/CurrentUserContext";
 import { register, authorize, checkToken } from "../utils/apiAuth.js";
 import moviesApi from "../utils/MoviesApi.js";
 import api from "../utils/MainApi.js";
+import {
+  STATUS_CODES,
+  maxDuration,
+  MovieCounter,
+  longScreenSize,
+  mediumScreenSize,
+} from "../utils/utils.js";
 
 function App() {
   const searchText = localStorage.getItem("searchText");
@@ -135,14 +142,14 @@ function App() {
 
   // проверка результата запроса на ошибки
   const checkRequestForErrors = (res) => {
-    if (res === 400) {
+    if (res === STATUS_CODES.BAD_REQUEST) {
       setIsRequestErrorMessage("Ошибка 400: Ошибка проверки");
-    } else if (res === 409) {
+    } else if (res === STATUS_CODES.CONFLICTING_REQUEST) {
       setIsRequestErrorMessage("Ошибка 409: Такой пользователь уже существует");
-    } else if (res === 401) {
+    } else if (res === STATUS_CODES.UNAUTHORIZED_ERROR) {
       setIsRequestErrorMessage("Ошибка 401: Неправильные почта или пароль");
     } else {
-      return 200;
+      return STATUS_CODES.OK;
     }
   };
   // добавить новый фильм на сервер
@@ -338,7 +345,7 @@ function App() {
         .then((res) => {
           // проверка результата запроса на ошибки
           const status = checkRequestForErrors(res);
-          if (status === 200) {
+          if (status === STATUS_CODES.OK) {
             setUserRegister(true);
             // перенаправить на страницу /movies
             onMovies();
@@ -353,7 +360,7 @@ function App() {
                 .then((res) => {
                   // проверка результата запроса на ошибки
                   const status = checkRequestForErrors(res);
-                  if (status === 200) {
+                  if (status === STATUS_CODES.OK) {
                     // сохранить токен в localStorage
                     localStorage.setItem("jwt", res.token);
                   }
@@ -397,7 +404,7 @@ function App() {
         .then((res) => {
           // проверка результата запроса на ошибки
           const status = checkRequestForErrors(res);
-          if (status === 200) {
+          if (status === STATUS_CODES.OK) {
             // сохранить токен в localStorage
             localStorage.setItem("jwt", res.token);
           }
@@ -435,7 +442,7 @@ function App() {
         // поиск короткометражек
         if (isShortSavedMovie) {
           const shortMovies = allSavedMovies.filter((movie) => {
-            return movie.duration <= 40;
+            return movie.duration <= maxDuration;
           });
           resultMovies = shortMovies;
         }
@@ -477,7 +484,7 @@ function App() {
       stringToBoolean(isSaveData.shortMovieStatus) === isShortMovie;
     if (isShortMovie) {
       const shortMovies = allMovies.filter((movie) => {
-        return movie.duration <= 40;
+        return movie.duration <= maxDuration;
       });
       setMovies(shortMovies);
       // сохранить данные запроса в localStorage
@@ -520,7 +527,7 @@ function App() {
     // поиск короткометражек
     if (isShortSavedMovie) {
       const shortMovies = savedMovies.filter((movie) => {
-        return movie.duration <= 40;
+        return movie.duration <= maxDuration;
       });
       resultMovies = shortMovies;
     }
@@ -597,12 +604,21 @@ function App() {
   // адаптивный экран (количество фильмов)
   useEffect(() => {
     const widthScreen = window.innerWidth;
-    if (1160 <= widthScreen) {
-      setIsMovieCounter({ finalValue: 12, step: 3 });
-    } else if (767 <= widthScreen) {
-      setIsMovieCounter({ finalValue: 8, step: 2 });
+    if (longScreenSize <= widthScreen) {
+      setIsMovieCounter({
+        finalValue: MovieCounter.oneInRow.finalValue,
+        step: MovieCounter.oneInRow.step,
+      });
+    } else if (mediumScreenSize <= widthScreen) {
+      setIsMovieCounter({
+        finalValue: MovieCounter.twoInRow.finalValue,
+        step: MovieCounter.twoInRow.step,
+      });
     } else {
-      setIsMovieCounter({ finalValue: 5, step: 2 });
+      setIsMovieCounter({
+        finalValue: MovieCounter.threeInRow.finalValue,
+        step: MovieCounter.threeInRow.step,
+      });
     }
   }, [isWidth]);
   // эффект при монтировании

@@ -1,5 +1,5 @@
 // MoviesCard — компонент одной карточки фильма
-import { baseUrlServer } from "../utils/utils.js";
+import { baseUrlServer, maxMinutes } from "../utils/utils.js";
 
 export default function MoviesCard({ type, movie, onSaveButtonClick }) {
   const savedMovies = type === "savedMovies";
@@ -15,8 +15,8 @@ export default function MoviesCard({ type, movie, onSaveButtonClick }) {
   const movieImageLink = savedMovies
     ? movie.image
     : baseUrlServer + movie.image.url;
-  const minutes = movie.duration % 60;
-  const hour = (movie.duration - minutes) / 60;
+  const minutes = movie.duration % maxMinutes;
+  const hour = (movie.duration - minutes) / maxMinutes;
   // изменение состояния кнопки
   const handleButtonClick = () => {
     onSaveButtonClick(movie);

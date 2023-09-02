@@ -19,3 +19,22 @@ export const dataApi = {
     "Content-Type": "application/json",
   },
 };
+
+export const STATUS_CODES = {
+  OK: 200,
+  BAD_REQUEST: 400,
+  UNAUTHORIZED_ERROR: 401,
+  CONFLICTING_REQUEST: 409,
+};
+
+export const maxDuration = 40;
+export const maxMinutes = 60;
+
+export const longScreenSize = 1160;
+export const mediumScreenSize = 767;
+
+export const MovieCounter = {
+  oneInRow: { finalValue: 12, step: 3 },
+  twoInRow: { finalValue: 8, step: 2 },
+  threeInRow: { finalValue: 5, step: 2 },
+};
