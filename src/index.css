@@ -11,6 +11,7 @@
 
 /* подключаем стили дополнительных блоков */
 @import url("./blocks/blue-button/blue-button.css");
+@import url("./blocks/blue-button/_disabled/blue-button_disabled.css");
 @import url("./blocks/button/button.css");
 @import url("./blocks/button-link/button-link.css");
 @import url("./blocks/cell/cell.css");
@@ -21,6 +22,8 @@
 @import url("./blocks/container-header/container-header.css");
 @import url("./blocks/container-line/container-line.css");
 @import url("./blocks/container-small/container-small.css");
+@import url("./blocks/error-message/error-message.css");
+@import url("./blocks/error-message/_success/error-message_success.css");
 @import url("./blocks/form/form.css");
 @import url("./blocks/indicator/indicator.css");
 @import url("./blocks/indicator/_disabled/indicator_disabled.css");
@@ -42,10 +45,13 @@
 
 /* подключаем стили блока header */
 @import url("./blocks/header/header.css");
+@import url("./blocks/header/_loggedIn/header_loggedIn.css");
 @import url("./blocks/header/__logo/header__logo.css");
 @import url("./blocks/header/__navigation/header__navigation.css");
 @import url("./blocks/header/__movies-links/header__movies-links.css");
+@import url("./blocks/header/__movies-links/_loggedIn/header__movies-links_loggedIn.css");
 @import url("./blocks/header/__profile-links/header__profile-links.css");
+@import url("./blocks/header/__profile-links/_loggedIn/header__profile-links_loggedIn.css");
 @import url("./blocks/header/__profile-edit-button/header__profile-edit-button.css");
 @import url("./blocks/header/__profile-menu-button/header__profile-menu-button.css");
 
@@ -56,10 +62,14 @@
 @import url("./blocks/search/__icon/search__icon.css");
 @import url("./blocks/search/__input/search__input.css");
 @import url("./blocks/search/__input/_type_error-focus/search__input_type_error-focus.css");
+@import url("./blocks/search/__list/search__list.css");
 @import url("./blocks/search/__submit-button/search__submit-button.css");
 @import url("./blocks/search/__input/_type_checkbox/search__input_type_checkbox.css");
 @import url("./blocks/search/__switch/search__switch.css");
 @import url("./blocks/search/__short-movie/search__short-movie.css");
+
+/* подключаем стили блока movies-not-found */
+@import url("./blocks/movies-not-found/movies-not-found.css");
 
 /* подключаем стили блока movies */
 @import url("./blocks/movies/movies.css");
@@ -76,6 +86,7 @@
 @import url("./blocks/movie/__save-button/movie__save-button.css");
 @import url("./blocks/movie/__save-button/_active/movie__save-button_active.css");
 @import url("./blocks/movie/__save-button/_completed/movie__save-button_completed.css");
+@import url("./blocks/movie/__save-button/_delete/movie__save-button_delete.css");
 @import url("./blocks/movie/__more-button/movies__more-button.css");
 
 /* подключаем стили блока footer */

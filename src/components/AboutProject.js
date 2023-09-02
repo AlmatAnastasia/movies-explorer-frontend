@@ -1,4 +1,5 @@
-// AboutProject — компонент с описанием дипломного проекта.
+// AboutProject — компонент с описанием дипломного проекта
+
 export default function AboutProject() {
   return (
     <section className="about">

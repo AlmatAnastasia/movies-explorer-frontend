@@ -1,5 +1,6 @@
 // Footer — презентационный компонент, который отрисовывает подвал
 import { Link } from "react-router-dom";
+
 export default function Footer() {
   return (
     <section className="footer center">

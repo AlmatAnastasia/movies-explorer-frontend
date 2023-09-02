@@ -1,0 +1,8 @@
+.blue-button_disabled {
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.blue-button_disabled:hover {
+  color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(66, 133, 244, 0.6);
+}

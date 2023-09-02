@@ -1,4 +1,5 @@
 // Techs — компонент с использованными технологиями.
+
 export default function Techs() {
   return (
     <section className="technologies">

@@ -1,6 +1,20 @@
 // Navigation — компонент, который отвечает за меню навигации на сайте
 import { Link } from "react-router-dom";
-export default function Navigation({ isMenuOpen, onMenuClick }) {
+
+export default function Navigation({
+  isMenuOpen,
+  onMenuClick,
+  onMovies,
+  onSavedMovies,
+}) {
+  const handleMoviesLinkClick = () => {
+    onMovies();
+    onMenuClick();
+  };
+  const handleSavedMoviesLinkClick = () => {
+    onSavedMovies();
+    onMenuClick();
+  };
   return (
     <section className={`menu ${isMenuOpen && "menu_opened"}`}>
       <div className="menu__container">
@@ -19,12 +33,20 @@ export default function Navigation({ isMenuOpen, onMenuClick }) {
               </Link>
             </li>
             <li>
-              <Link className="menu__movies-link link" href="/movies">
+              <Link
+                className="menu__movies-link link"
+                onClick={handleMoviesLinkClick}
+                to="/movies"
+              >
                 Фильмы
               </Link>
             </li>
             <li>
-              <Link className="menu__movies-link link" to="/saved-movies">
+              <Link
+                className="menu__movies-link link"
+                onClick={handleSavedMoviesLinkClick}
+                to="/saved-movies"
+              >
                 Сохранённые фильмы
               </Link>
             </li>
